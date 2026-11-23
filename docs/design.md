@@ -4,13 +4,17 @@ These are candidates and estimates, not a frozen design or procurement BOM.
 
 ## Architecture
 
-Use an MCU for USB, configuration, flash, GNSS messages, and diagnostics. A small FPGA handles deterministic code playback, frequency scheduling, and hardware interlocks. A GNSS-disciplined external 10 MHz voltage-controlled TCXO supplies a clock synthesizer/distributor feeding the DDS and timing engine. PPS establishes the epoch.
+The baseline is cost-first: one inexpensive USB MCU with deterministic peripheral-driven output (PIO/timers plus DMA), one single-channel DDS, a standard u-blox GNSS receiver with PPS, and an external voltage-controlled 10 MHz TCXO with a simple discipline loop. No FPGA, premium timing receiver, or populated multichannel hardware in the initial board.
 
-The RF path is DDS → reconstruction filter → adjustable driver → hardware mute → SMA. A separate PA receives RF and a fail-safe enable signal. Locate antenna-side power sensing after the PA output filters.
+RP2040/RP2350-class controllers are candidates. Code transitions must run from the disciplined clock domain, not an unrelated MCU crystal. Prove a supported external-clock arrangement and legal clock rates before selecting the MCU. Hardware-timed phase selection avoids per-chip USB traffic or firmware interrupt timing. USB configuration, flash storage, GNSS parsing, and diagnostics remain on the MCU.
 
-The u-blox ZED-F9T-20B is a candidate timing receiver. GNSS pulse output is not automatically a substitute for a low-phase-noise oscillator; design and validate the discipline loop and clock synthesis.
+MAX-M10S-class u-blox PPS receivers are candidates; final part selection depends on genuine-module price and assembly availability. Validate PPS uncertainty, time validity reporting, and discipline performance against receiver requirements rather than buying nanosecond timing specifications by default. The external oscillator must have an accessible voltage-control input: a fixed TCXO alone cannot implement this discipline loop.
 
-AD9959 is a candidate DDS: four synchronized channels, phase modulation via profile pins, and multichip synchronization. Two devices could support seven outputs, but independent code routing, synchronization, spur performance, and 10-bit DAC limitations require review. A higher-resolution DDS or FPGA/DAC architecture remains an alternative, especially for shaped arbitrary waveforms.
+A single-channel DDS with a hardware phase-select input is preferred. AD9834 is a feasibility candidate, not a selected part: its 75 MHz clock leaves limited reconstruction-filter margin at 30 MHz, so verify full-band spectral performance and price before committing. A faster economical DDS is an alternative. Do not substitute AD9833 without checking its frequency ceiling. Keep the RF driver modest and defer the exact output-level target until a real BOM is available.
+
+The RF path is DDS → reconstruction filter → driver → fail-safe RF mute → SMA. A separate PA receives RF and an enable signal. Retain a hardware missing-PPS/watchdog inhibit; cost reduction does not remove the lock requirement. GNSS validity still requires fresh protocol status as well as pulse detection.
+
+Seven outputs are a later hardware revision. Preserve configuration/protocol extensibility and sensible synchronization access without paying for extra DDS channels, drivers, or an FPGA now.
 
 ## Compatibility with the existing ionosonde
 
@@ -32,17 +36,24 @@ Select the output device and matching network for 0.5–30 MHz performance; a tr
 
 At an illustrative efficiency of 40–60%, 10 W RF corresponds to approximately 7–15 W of PA heat, excluding drivers and regulators. Final heatsink selection requires measured efficiency, ambient-temperature limits, and thermal resistance. Conventional USB power is insufficient for the full transmitter; consider a separate supply or negotiated USB-C PD.
 
-## Planning costs (USD)
+## Cost target (USD)
 
-| Assembly | One-off prototype allowance |
+**User target: $50–100 per assembled single-channel exciter board.** Budget for a small batch (provisionally 10–50 boards), with onboard GNSS and 10 MHz oscillator discipline. These are allocation ceilings, not quoted component prices:
+
+| Function | Target allocation per board |
 | --- | ---: |
-| Complete single-output exciter | $600–1,200 |
-| Separate PA, filters, protection, cooling and supply | $250–600 |
-| Complete system | $850–1,800 |
+| Genuine standard u-blox PPS module | $12–22 |
+| USB MCU, flash, digital support | $3–6 |
+| Single-channel DDS | $8–18 |
+| Voltage-controlled TCXO, discipline and clock circuitry | $6–12 |
+| RF filtering, modest driver, mute and SMA | $6–12 |
+| Regulators, USB, passives and protection | $4–8 |
+| PCB and assembly allocation | $8–18 |
+| Total allocated range | $47–96 |
 
-Tentative mature small-batch targets, roughly 10–50 units: $350–650 per exciter and $150–350 per PA assembly. A seven-output exciter was provisionally estimated at $700–1,300 in small batches. All ranges exclude engineering, test equipment, qualification, tax, shipping, and manufacturing rework; they require revision against a real BOM and assembly quote.
+The $100 ceiling is the initial acceptance target; $50 is the stretch target. The upper allocation leaves little contingency. Verify genuine GNSS/DDS sourcing and JLCPCB assembly charges first, then adjust the architecture if it does not fit. Do not report this as an achieved manufacturing cost. One-off bring-up, minimum order quantities, setup fees, and respins can exceed the per-board target.
 
-As a retail reference, SparkFun lists its F9T-20B timing breakout at $314.95. This is a breakout-board price, not a bare-module quote or a commitment on availability.
+Excluded: GNSS antenna, enclosure, cables, power adapter, shipping, tax, engineering, test equipment, qualification, and separate PA. The PA requires its own costed design; the $50–100 exciter target is not a promise for the complete 10 W transmitter. Earlier premium-receiver/FPGA prototype estimates are superseded by this cost-first baseline.
 
 ## Sources
 
@@ -50,4 +61,6 @@ As a retail reference, SparkFun lists its F9T-20B timing breakout at $314.95. Th
 - [Existing waveform generator](https://github.com/jvierine/ionosonde/blob/master/create_waveform.py)
 - [u-blox ZED-F9T family](https://www.u-blox.com/en/product/zed-f9t-module?legacy=Current)
 - [AD9959 product information and datasheet](https://www.analog.com/en/products/ad9959.html)
-- [SparkFun F9T-20B breakout](https://www.sparkfun.com/sparkfun-gnss-timing-breakout-zed-f9t-20b-qwiic.html)
+- [u-blox MAX-M10 family](https://www.u-blox.com/en/product/max-m10-series?legacy=Current)
+- [AD9834 DDS](https://www.analog.com/en/products/ad9834.html)
+- [RP2350 pricing and hardware overview](https://www.raspberrypi.com/news/rp2350-now-available-to-buy-a-high-performance-secure-microcontroller-for-your-next-project/)

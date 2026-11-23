@@ -9,10 +9,12 @@ A planned standalone, GNSS-timed DDS exciter for PRN ionosondes and coded-CW rad
 - **No valid GNSS timing or oscillator lock → no transmission.**
 - USB configuration and power; programs stored onboard; no computer or internet required during operation.
 - SMA exciter output. Separate optional **10 W PA**, with cooling, open/short protection, harmonic filtering, and a final **50 MHz low-pass filter**.
-- Provision for later telemetry and **seven independently coded exciter outputs**.
+- Provision for later telemetry; **seven independently coded outputs** are a future revision, not populated on the first board.
 
 **Status:** requirements and feasibility only. No schematic, PCB, firmware, or validated BOM yet. A future revision is intended for JLCPCB manufacture and bench testing; no fabrication is planned now.
 
-Initial planning budget: **US$600–1,200 for a one-off exciter**, plus **$250–600 for the PA assembly**. These are unquoted estimates, excluding engineering, tax, and shipping.
+**Cost target: US$50–100 per assembled single-channel exciter board** in a small batch. This includes onboard GNSS and clock discipline, but excludes the GNSS antenna, enclosure, cables, power adapter, shipping, tax, engineering, and the separate PA. This is a design target, not a validated BOM or quote.
+
+Cost-first direction: one inexpensive USB microcontroller with hardware-timed code output, one DDS, a standard u-blox PPS receiver, and a disciplined 10 MHz voltage-controlled TCXO. No FPGA or premium timing receiver in the baseline.
 
 See [requirements](docs/requirements.md) and [design considerations](docs/design.md) for details and unresolved decisions.
