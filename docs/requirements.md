@@ -8,6 +8,15 @@ This records the intended device, not verified hardware performance.
 - Exclude antenna, enclosure, cables, adapter, shipping, tax, engineering, and separate PA. Validate with a sourced BOM and assembly quote before claiming compliance.
 - Use a cost-first MCU/DDS architecture; FPGA and premium GNSS timing receiver are not baseline requirements. Seven-channel population is deferred.
 
+## Component availability and lifecycle
+
+- Prefer widely used, common components in active production, with broad distribution and a credible long-term supply outlook. Avoid obsolete, end-of-life, not-recommended-for-new-design, scarce, or marketplace-only parts.
+- Prefer parts stocked by multiple established authorized distributors. For JLCPCB assembly, check the actual JLCPCB/LCSC assembly catalogue and stock; prefer commonly stocked standard assembly parts where practical.
+- Use standard packages and generic passives, regulators, logic, and connectors with documented compatible alternatives where possible. Verify pinout, ratings, timing, RF behavior, and firmware compatibility before approving substitutes.
+- For specialized parts such as the DDS, GNSS module, and voltage-controlled TCXO, assess manufacturer lifecycle status, distributor stock, lead time, package availability, and substitution options before committing the schematic or layout. Multiple distributors do not make a single-source IC second-sourced.
+- Record manufacturer part numbers, sourcing options, approved alternatives, and dated stock/lifecycle checks in the eventual BOM. Recheck before each fabrication order; current stock cannot guarantee future availability.
+- Existing named components are feasibility candidates only. Select the architecture around the $50–100 target and sustainable sourcing together; do not freeze a scarce part merely because it was mentioned first.
+
 ## Exciter
 
 - Standalone programmable DDS transmitter, initially covering 0.5–30 MHz.

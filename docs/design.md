@@ -16,6 +16,10 @@ The RF path is DDS → reconstruction filter → driver → fail-safe RF mute �
 
 Seven outputs are a later hardware revision. Preserve configuration/protocol extensibility and sensible synchronization access without paying for extra DDS channels, drivers, or an FPGA now.
 
+## Sourcing policy
+
+Choose common active-production parts with multiple established authorized stocking distributors and verify JLCPCB/LCSC assembly availability before layout release. Prefer standard packages and documented substitutes for commodity circuitry. Specialized DDS, GNSS, and tunable oscillator parts need explicit lifecycle and supply review; the named candidates above have not passed that review. Avoid a design dependent on surplus modules, marketplace clones, or a single transient stock listing. Retain dated sourcing evidence in the eventual BOM and recheck before ordering.
+
 ## Compatibility with the existing ionosonde
 
 The inspected upstream `tx_uhd.py` schedules timed bursts and frequency hops, controls watchdog/antenna GPIO, and checks GPS status. The inspected waveform generator also supports arbitrary phase sequences and filtered complex envelopes. Binary phase switching alone does not reproduce all such waveforms.

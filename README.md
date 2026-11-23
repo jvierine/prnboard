@@ -7,6 +7,7 @@ A planned standalone, GNSS-timed DDS exciter for PRN ionosondes and coded-CW rad
 - UTC-aligned frequency programs: up to **1000 frequencies in user-defined order**, or single-frequency operation.
 - u-blox GNSS timing, PPS-defined time, and a disciplined **10 MHz TCXO**.
 - **No valid GNSS timing or oscillator lock → no transmission.**
+- Prefer common, active-production components stocked by multiple established suppliers; check JLCPCB/LCSC availability before release.
 - USB configuration and power; programs stored onboard; no computer or internet required during operation.
 - SMA exciter output. Separate optional **10 W PA**, with cooling, open/short protection, harmonic filtering, and a final **50 MHz low-pass filter**.
 - Provision for later telemetry; **seven independently coded outputs** are a future revision, not populated on the first board.
