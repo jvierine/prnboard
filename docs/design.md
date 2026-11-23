@@ -4,11 +4,17 @@ These are candidates and estimates, not a frozen design or procurement BOM.
 
 ## Architecture
 
-The baseline is cost-first: one inexpensive USB MCU with deterministic peripheral-driven output (PIO/timers plus DMA), one single-channel DDS, a standard u-blox GNSS receiver with PPS, and an external voltage-controlled 10 MHz TCXO with a simple discipline loop. No FPGA, premium timing receiver, or populated multichannel hardware in the initial board.
+The baseline is cost-first: one inexpensive USB MCU with deterministic peripheral-driven output (PIO/timers plus DMA), one single-channel DDS, a dual-frequency raw-data u-blox GNSS receiver with PPS, and an external voltage-controlled 10 MHz TCXO with a simple discipline loop. No FPGA, premium timing receiver, or populated multichannel hardware in the initial board.
 
 RP2040/RP2350-class controllers are candidates. Code transitions must run from the disciplined clock domain, not an unrelated MCU crystal. Prove a supported external-clock arrangement and legal clock rates before selecting the MCU. Hardware-timed phase selection avoids per-chip USB traffic or firmware interrupt timing. USB configuration, flash storage, GNSS parsing, and diagnostics remain on the MCU.
 
-MAX-M10S-class u-blox PPS receivers are candidates; final part selection depends on genuine-module price and assembly availability. Validate PPS uncertainty, time validity reporting, and discipline performance against receiver requirements rather than buying nanosecond timing specifications by default. The external oscillator must have an accessible voltage-control input: a fixed TCXO alone cannot implement this discipline loop.
+Preferred GNSS candidate: **NEO-F10N-00B-20**, which supports L1/L5 and full raw measurements through UBX-RXM-RAWX. The ordinary -00 variant does not provide the required full raw carrier-phase output. This supersedes MAX-M10S as the baseline candidate because dual-frequency TEC capability is now required. The F10N also supplies PPS for the discipline loop. Validate the exact module/firmware message set, simultaneous same-satellite dual-frequency observations, raw output bandwidth, timing, and antenna performance before freezing the design.
+
+Route its UART to the MCU for timing and raw-data export over USB. Preserve RAWX and broadcast navigation data (verify supported SFRBX output), with loss/overflow reporting and signal quality flags. TEC retrieval requires geometry-free dual-frequency processing, cycle-slip handling and bias treatment; relative phase TEC and calibrated absolute TEC are distinct products. Continuous standalone raw logging needs a separate storage-capacity decision and must not disturb transmit timing. A dual-band antenna is required and remains outside the board budget.
+
+A distributor search on 2026-11-23 listed the exact -20 variant at approximately $19.50 in single quantity; treat this as a provisional price indication, not a secured quote or broad-stock qualification. This fits near the upper end of the existing $12–22 GNSS allocation, so retain the $50–100 target pending a complete BOM. Check multiple authorized sources and JLCPCB assembly sourcing before release.
+
+The external oscillator must have an accessible voltage-control input: a fixed TCXO alone cannot implement this discipline loop.
 
 A single-channel DDS with a hardware phase-select input is preferred. AD9834 is a feasibility candidate, not a selected part: its 75 MHz clock leaves limited reconstruction-filter margin at 30 MHz, so verify full-band spectral performance and price before committing. A faster economical DDS is an alternative. Do not substitute AD9833 without checking its frequency ceiling. Keep the RF driver modest and defer the exact output-level target until a real BOM is available.
 
@@ -46,7 +52,7 @@ At an illustrative efficiency of 40–60%, 10 W RF corresponds to approximately 
 
 | Function | Target allocation per board |
 | --- | ---: |
-| Genuine standard u-blox PPS module | $12–22 |
+| Dual-frequency raw-data u-blox module | $12–22 |
 | USB MCU, flash, digital support | $3–6 |
 | Single-channel DDS | $8–18 |
 | Voltage-controlled TCXO, discipline and clock circuitry | $6–12 |
@@ -68,3 +74,8 @@ Excluded: GNSS antenna, enclosure, cables, power adapter, shipping, tax, enginee
 - [u-blox MAX-M10 family](https://www.u-blox.com/en/product/max-m10-series?legacy=Current)
 - [AD9834 DDS](https://www.analog.com/en/products/ad9834.html)
 - [RP2350 pricing and hardware overview](https://www.raspberrypi.com/news/rp2350-now-available-to-buy-a-high-performance-secure-microcontroller-for-your-next-project/)
+
+- [NEO-F10N datasheet: exact raw-data variant and observables](https://content.u-blox.com/sites/default/files/documents/NEO-F10N_DataSheet_UBX-23002117.pdf)
+- [NEO-F10N product summary: L1/L5, carrier-phase option, and PPS](https://content.u-blox.com/sites/default/files/documents/NEO-F10N_ProductSummary_UBX-22038758.pdf)
+- [u-blox full raw-data support by product](https://www.u-blox.com/en/technologies/gnss-raw-data)
+- [Distributor listing for price/stock recheck](https://www.mouser.com/en/c/embedded-solutions/wireless-rf-modules/gnss-gps-modules/?protocol+-+gps%2C+glonass=GNSS)

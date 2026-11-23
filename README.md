@@ -5,7 +5,7 @@ A planned standalone, GNSS-timed DDS exciter for PRN ionosondes and coded-CW rad
 - Configurable carrier: initially **0.5–30 MHz**.
 - User-uploaded binary phase code; **30 µs chips by default**, configurable from **10–1000 µs**.
 - UTC-aligned frequency programs: up to **1000 frequencies in user-defined order**, or single-frequency operation.
-- u-blox GNSS timing, PPS-defined time, and a disciplined **10 MHz TCXO**.
+- Dual-frequency u-blox GNSS with raw carrier phase/pseudorange for **TEC**, PPS-defined time, and a disciplined **10 MHz TCXO**. Preferred candidate: **NEO-F10N-00B-20** (raw-data variant).
 - **No valid GNSS timing or oscillator lock → no transmission.**
 - Prefer common, active-production components stocked by multiple established suppliers; check JLCPCB/LCSC availability before release.
 - USB configuration and power; programs stored onboard; no computer or internet required during operation.
@@ -16,6 +16,6 @@ A planned standalone, GNSS-timed DDS exciter for PRN ionosondes and coded-CW rad
 
 **Cost target: US$50–100 per assembled single-channel exciter board** in a small batch. This includes onboard GNSS and clock discipline, but excludes the GNSS antenna, enclosure, cables, power adapter, shipping, tax, engineering, and the separate PA. This is a design target, not a validated BOM or quote.
 
-Cost-first direction: one inexpensive USB microcontroller with hardware-timed code output, one DDS, a standard u-blox PPS receiver, and a disciplined 10 MHz voltage-controlled TCXO. No FPGA or premium timing receiver in the baseline.
+Cost-first direction: one inexpensive USB microcontroller with hardware-timed code output, one DDS, a dual-frequency raw-data u-blox receiver, and a disciplined 10 MHz voltage-controlled TCXO. No FPGA or premium timing receiver in the baseline.
 
 See [requirements](docs/requirements.md) and [design considerations](docs/design.md) for details and unresolved decisions.

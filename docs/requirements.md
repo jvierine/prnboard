@@ -32,7 +32,10 @@ This records the intended device, not verified hardware performance.
 
 ## Timing and inhibit
 
-- Use a u-blox GNSS receiver, with PPS defining time and GNSS disciplining an external voltage-controlled 10 MHz TCXO.
+- Use a dual-frequency u-blox GNSS receiver exposing simultaneous raw carrier phase and pseudorange on two frequencies for the same satellite, with PPS defining time and GNSS disciplining an external voltage-controlled 10 MHz TCXO.
+- Preferred cost-compatible candidate: NEO-F10N-00B-20, the full raw-data L1/L5 variant. Do not substitute NEO-F10N-00B-00 or assume all dual-band receivers expose carrier phase. Confirm exact ordering code and firmware support before procurement.
+- Preserve raw measurements, signal/satellite IDs, epochs, quality/lock flags, and broadcast navigation data for later TEC processing. Provide USB raw-data export; standalone TEC logging duration and onboard storage capacity remain to be defined. Use HDF5 for host scientific data products.
+- Use an L1/L5-capable antenna and RF path. TEC is derived from measurements, not assumed to be a ready-made receiver output; account for cycle slips, phase ambiguities, and receiver/satellite differential code biases. No RTK service or internet is required to collect these observations. TEC-processing quality is separate from the transmit timing interlock.
 - Interpret the requested lock interlock as valid GNSS timing plus qualified oscillator discipline; not ionospheric TEC estimation.
 - Transmission requires fresh valid time, qualified GNSS status, present PPS, oscillator lock, valid program, and healthy hardware.
 - Hardware RF mute and PA-enable interlock must default off at startup, reset, programming, and watchdog failure.
