@@ -4,7 +4,7 @@ This records the intended device, not verified hardware performance.
 
 ## Cost
 
-- Aim for **US$50–100 per assembled single-channel exciter board** in a small batch, including onboard GNSS and oscillator discipline. $100 is the initial ceiling; $50 is the stretch target.
+- Aim for **US$50–100 per assembled single-channel exciter board** in a small batch, including onboard Wi-Fi, GNSS, and oscillator discipline. $100 is the initial ceiling; $50 is the stretch target.
 - Exclude antenna, enclosure, cables, adapter, shipping, tax, engineering, and separate PA. Validate with a sourced BOM and assembly quote before claiming compliance.
 - Use a cost-first MCU/DDS architecture; FPGA and premium GNSS timing receiver are not baseline requirements. Seven-channel population is deferred.
 
@@ -29,6 +29,16 @@ This records the intended device, not verified hardware performance.
 - Define UTC start epoch, code start/restart rules, hop timing, and behavior when a dwell is not an integer number of code periods.
 - Configure and power the exciter by USB. A power adapter must suffice after programming; no host or internet dependency during operation.
 - SMA RF output into 50 Ω. Output level and flatness are not yet fixed; approximately +10 dBm is a candidate target.
+
+## Wi-Fi and local control
+
+- Include onboard Wi-Fi in the baseline microcontroller subsystem, within the $50–100 assembled-board target. Prefer a common radio module with integrated antenna and established supply; exact MCU/radio selection remains open.
+- Support local configuration, program upload, and health/telemetry access over Wi-Fi. Retain USB configuration, recovery, and raw GNSS export.
+- Support joining a local access point and a local setup access-point mode for initial provisioning; no cloud account, internet, or external time service is required.
+- Loss of Wi-Fi must not interrupt a valid stored transmit program. RF timing and interlocks must remain deterministic under network traffic, reconnection, and provisioning.
+- Network commands cannot bypass GNSS/oscillator/PA interlocks. Validate configurations before activation and apply changes at defined safe boundaries. Protect configuration access with authentication; do not expose unauthenticated transmit control.
+- Allow Wi-Fi to be disabled while the stored program continues. Assess Wi-Fi current peaks, supply noise, GNSS reception, and DDS output interference in PCB layout and bench tests.
+- Continuous raw GNSS streaming over Wi-Fi is an optional later capability, not a substitute for required USB export or a reason to compromise waveform timing.
 
 ## Timing and inhibit
 

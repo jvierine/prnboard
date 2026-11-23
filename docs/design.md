@@ -4,9 +4,9 @@ These are candidates and estimates, not a frozen design or procurement BOM.
 
 ## Architecture
 
-The baseline is cost-first: one inexpensive USB MCU with deterministic peripheral-driven output (PIO/timers plus DMA), one single-channel DDS, a dual-frequency raw-data u-blox GNSS receiver with PPS, and an external voltage-controlled 10 MHz TCXO with a simple discipline loop. No FPGA, premium timing receiver, or populated multichannel hardware in the initial board.
+The baseline is cost-first: an inexpensive Wi-Fi-capable MCU subsystem with USB and deterministic peripheral-driven output (PIO/timers plus DMA), one single-channel DDS, a dual-frequency raw-data u-blox GNSS receiver with PPS, and an external voltage-controlled 10 MHz TCXO with a simple discipline loop. No FPGA, premium timing receiver, or populated multichannel hardware in the initial board.
 
-RP2040/RP2350-class controllers are candidates. Code transitions must run from the disciplined clock domain, not an unrelated MCU crystal. Prove a supported external-clock arrangement and legal clock rates before selecting the MCU. Hardware-timed phase selection avoids per-chip USB traffic or firmware interrupt timing. USB configuration, flash storage, GNSS parsing, and diagnostics remain on the MCU.
+MCU selection is reopened to include Wi-Fi. Compare a common integrated Wi-Fi MCU module with a deterministic waveform MCU plus a separate common Wi-Fi module. RP2040/RP2350-class controllers alone do not meet the Wi-Fi requirement. Select the least expensive arrangement that demonstrates the required timing and USB behavior; no part is frozen. Code transitions must run from the disciplined clock domain, not an unrelated MCU crystal. Prove a supported external-clock arrangement and legal clock rates before selecting the MCU. Hardware-timed phase selection avoids per-chip USB traffic or firmware interrupt timing. USB configuration, flash storage, GNSS parsing, and diagnostics remain on the MCU.
 
 Preferred GNSS candidate: **NEO-F10N-00B-20**, which supports L1/L5 and full raw measurements through UBX-RXM-RAWX. The ordinary -00 variant does not provide the required full raw carrier-phase output. This supersedes MAX-M10S as the baseline candidate because dual-frequency TEC capability is now required. The F10N also supplies PPS for the discipline loop. Validate the exact module/firmware message set, simultaneous same-satellite dual-frequency observations, raw output bandwidth, timing, and antenna performance before freezing the design.
 
@@ -21,6 +21,10 @@ A single-channel DDS with a hardware phase-select input is preferred. AD9834 is 
 The RF path is DDS → reconstruction filter → driver → fail-safe RF mute → SMA. A separate PA receives RF and an enable signal. Retain a hardware missing-PPS/watchdog inhibit; cost reduction does not remove the lock requirement. GNSS validity still requires fresh protocol status as well as pulse detection.
 
 Seven outputs are a later hardware revision. Preserve configuration/protocol extensibility and sensible synchronization access without paying for extra DDS channels, drivers, or an FPGA now.
+
+## Wi-Fi integration
+
+Wi-Fi is now part of the baseline cost target. Prefer an established module and antenna layout over designing a discrete radio. Local setup access-point mode and station mode provide configuration and health access without internet. USB remains the recovery path. Network handling must not schedule individual chips, block hardware waveform feeding, or override the fail-safe mute. Test timing under heavy network traffic and GNSS reception while the radio transmits. Provide software radio disable and appropriate antenna separation and power-supply decoupling.
 
 ## Sourcing policy
 
@@ -48,20 +52,20 @@ At an illustrative efficiency of 40–60%, 10 W RF corresponds to approximately 
 
 ## Cost target (USD)
 
-**User target: $50–100 per assembled single-channel exciter board.** Budget for a small batch (provisionally 10–50 boards), with onboard GNSS and 10 MHz oscillator discipline. These are allocation ceilings, not quoted component prices:
+**User target: $50–100 per assembled single-channel exciter board.** Budget for a small batch (provisionally 10–50 boards), with onboard Wi-Fi, GNSS, and 10 MHz oscillator discipline. These are allocation ceilings, not quoted component prices:
 
 | Function | Target allocation per board |
 | --- | ---: |
 | Dual-frequency raw-data u-blox module | $12–22 |
-| USB MCU, flash, digital support | $3–6 |
+| MCU, Wi-Fi module/antenna, flash, digital support | $5–10 |
 | Single-channel DDS | $8–18 |
 | Voltage-controlled TCXO, discipline and clock circuitry | $6–12 |
 | RF filtering, modest driver, mute and SMA | $6–12 |
 | Regulators, USB, passives and protection | $4–8 |
 | PCB and assembly allocation | $8–18 |
-| Total allocated range | $47–96 |
+| Total allocated range | $49–100 |
 
-The $100 ceiling is the initial acceptance target; $50 is the stretch target. The upper allocation leaves little contingency. Verify genuine GNSS/DDS sourcing and JLCPCB assembly charges first, then adjust the architecture if it does not fit. Do not report this as an achieved manufacturing cost. One-off bring-up, minimum order quantities, setup fees, and respins can exceed the per-board target.
+The $100 ceiling is the initial acceptance target; $50 is the stretch target. The upper allocation leaves no contingency; Wi-Fi must be included in the sourced BOM rather than treated as an extra. Verify genuine GNSS/DDS sourcing and JLCPCB assembly charges first, then adjust the architecture if it does not fit. Do not report this as an achieved manufacturing cost. One-off bring-up, minimum order quantities, setup fees, and respins can exceed the per-board target.
 
 Excluded: GNSS antenna, enclosure, cables, power adapter, shipping, tax, engineering, test equipment, qualification, and separate PA. The PA requires its own costed design; the $50–100 exciter target is not a promise for the complete 10 W transmitter. Earlier premium-receiver/FPGA prototype estimates are superseded by this cost-first baseline.
 
