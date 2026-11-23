@@ -26,7 +26,7 @@ Upload exact codes rather than relying solely on random-number seeds whose inter
 
 ## Bandwidth and filtering
 
-Rectangular BPSK has first spectral nulls at carrier ±1/chip_duration. A 1 µs chip therefore has a 2 MHz null-to-null main lobe. At a 0.5 MHz carrier, it is not a conventional narrowband passband signal. Define valid carrier/chip/shaping combinations and spectral acceptance limits rather than promising identical performance for every combination.
+Rectangular BPSK has first spectral nulls at carrier ±1/chip_duration. At the minimum supported chip duration of 10 µs, the first nulls are ±100 kHz from the carrier (200 kHz null-to-null). At the default 30 µs, they are approximately ±33.3 kHz (66.7 kHz null-to-null). Spectral sidelobes extend beyond these nulls; define pulse shaping and spectral acceptance limits across the carrier range. The supported chip-duration range is 10–1000 µs.
 
 A fixed 50 MHz low-pass filter does not reject low-order harmonics of low HF carriers. A switched harmonic-filter bank is a candidate addition. Filter selection must account for occupied modulation bandwidth, insertion loss, power handling, switching transients, and mismatch.
 

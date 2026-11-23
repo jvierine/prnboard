@@ -12,7 +12,7 @@ This records the intended device, not verified hardware performance.
 
 - Standalone programmable DDS transmitter, initially covering 0.5–30 MHz.
 - Upload an agreed binary phase sequence, mapping chips to 0° and 180°.
-- Configure chip duration independently of sequence length: default 30 µs, range 1–1000 µs. Duration resolution and maximum sequence length remain to be selected.
+- Configure chip duration independently of sequence length: default 30 µs, range 10–1000 µs. Duration resolution and maximum sequence length remain to be selected.
 - Store explicit sequences and programs in nonvolatile memory with integrity checking.
 - Frequency table supports up to 1000 entries in user-defined order. Each entry should identify frequency, dwell, code, level, and optional digital output state.
 - Support periodic sweeps, one-shot sweeps, and single-frequency operation.

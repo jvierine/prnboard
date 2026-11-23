@@ -3,7 +3,7 @@
 A planned standalone, GNSS-timed DDS exciter for PRN ionosondes and coded-CW radar. Intended to replace the transmitter USRP and `tx_uhd.py` in [jvierine/ionosonde](https://github.com/jvierine/ionosonde).
 
 - Configurable carrier: initially **0.5–30 MHz**.
-- User-uploaded binary phase code; **30 µs chips by default**, configurable from **1–1000 µs**.
+- User-uploaded binary phase code; **30 µs chips by default**, configurable from **10–1000 µs**.
 - UTC-aligned frequency programs: up to **1000 frequencies in user-defined order**, or single-frequency operation.
 - u-blox GNSS timing, PPS-defined time, and a disciplined **10 MHz TCXO**.
 - **No valid GNSS timing or oscillator lock → no transmission.**
