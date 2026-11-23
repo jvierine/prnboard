@@ -1,0 +1,13 @@
+{
+  "status": "ENGINEERING_DRAFT_NOT_FOR_FABRICATION",
+  "connectivity_mismatches": [],
+  "footprint_missing_pins": [],
+  "footprint_unmapped_pads": [],
+  "erc_findings": 0,
+  "pcb_findings": 105,
+  "pcb_unconnected_items": 359,
+  "component_estimate_usd": 58.56,
+  "hardware_tested": false,
+  "firmware_implemented": false,
+  "routing_complete": false
+}

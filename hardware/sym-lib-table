@@ -1,0 +1,1 @@
+(sym_lib_table (lib (name "PRNboard") (type "KiCad") (uri "${KIPRJMOD}/PRNboard.kicad_sym") (options "") (descr "PRNboard draft circuit")))

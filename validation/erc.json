@@ -1,0 +1,111 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-23T18:06:58",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "10.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653",
+            "violations": []
+        },
+        {
+            "path": "/Power/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/f5eb536c-fda1-5e7f-b785-2871f393bf23",
+            "violations": []
+        },
+        {
+            "path": "/Controller 1/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/8ebf3aba-ec88-5b12-b9e4-6b045dad43b9",
+            "violations": []
+        },
+        {
+            "path": "/Controller 2/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/194cbc95-f35f-5f00-a93b-46aa9d85f1f9",
+            "violations": []
+        },
+        {
+            "path": "/Controller 3/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/00b0ff44-8aa5-5d2d-9e6a-8aae11c653e7",
+            "violations": []
+        },
+        {
+            "path": "/Wi-Fi/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/a6edf53a-e87a-57b6-a690-1f9b17fafda0",
+            "violations": []
+        },
+        {
+            "path": "/GNSS/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/5a64ad82-0882-5148-8a4f-6adb9cc8edaa",
+            "violations": []
+        },
+        {
+            "path": "/Reference 1/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/444460c3-cd6a-56ce-aaa3-78faf0b34041",
+            "violations": []
+        },
+        {
+            "path": "/Reference 2/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/55bdf497-6f9d-5d51-b35b-8ef2842e41e6",
+            "violations": []
+        },
+        {
+            "path": "/Reference 3/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/f1d6b49c-4816-5e48-82af-358eabb45bb4",
+            "violations": []
+        },
+        {
+            "path": "/DDS/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/529b01a8-36d1-511d-8a0b-0ec504315f2f",
+            "violations": []
+        },
+        {
+            "path": "/RF 1/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/11bbd1ac-bbec-5c94-8128-61af84eb7b4b",
+            "violations": []
+        },
+        {
+            "path": "/RF 2/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/895496fb-f9a2-57a2-b57c-1e946f07a71f",
+            "violations": []
+        },
+        {
+            "path": "/Interlock 1/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/ddeb8243-c85f-5ee7-8691-cb54c046214e",
+            "violations": []
+        },
+        {
+            "path": "/Interlock 2/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/9bb36d1a-2817-54aa-9448-fa3f4c7ea009",
+            "violations": []
+        },
+        {
+            "path": "/Expansion/",
+            "uuid_path": "/079492f9-74bc-5f20-891e-e78e65982653/b78233d1-4630-5eff-8e16-c40b132584d6",
+            "violations": []
+        }
+    ],
+    "source": "prnboard.kicad_sch"
+}

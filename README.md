@@ -1,22 +1,20 @@
 # PRNboard
 
-A planned standalone, GNSS-timed DDS exciter for PRN ionosondes and coded-CW radar. Intended to replace the transmitter USRP and `tx_uhd.py` in [jvierine/ionosonde](https://github.com/jvierine/ionosonde).
+A standalone GNSS-timed PRN ionosonde exciter, intended to replace the transmit USRP and `tx_uhd.py` in [ionosonde](https://github.com/jvierine/ionosonde).
 
-- Configurable carrier: initially **0.5–30 MHz**.
-- User-uploaded binary phase code; **30 µs chips by default**, configurable from **10–1000 µs**.
-- UTC-aligned frequency programs: up to **1000 frequencies in user-defined order**, or single-frequency operation.
-- Dual-frequency u-blox GNSS with raw carrier phase/pseudorange for **TEC**, PPS-defined time, and a disciplined **10 MHz TCXO**. Preferred candidate: **NEO-F10N-00B-20** (raw-data variant).
-- **No valid GNSS timing or oscillator lock → no transmission.**
-- Prefer common, active-production components stocked by multiple established suppliers; check JLCPCB/LCSC availability before release.
-- Onboard **Wi-Fi** for local configuration and health/telemetry access; USB remains available.
-- USB configuration and power; programs stored onboard; no computer or internet required during operation.
-- SMA exciter output. Separate optional **10 W PA**, with cooling, open/short protection, harmonic filtering, and a final **50 MHz low-pass filter**.
-- Provision for later telemetry; **seven independently coded outputs** are a future revision, not populated on the first board.
+- **0.5–30 MHz**, uploaded binary phase code, **10–1000 µs chips** (default **30 µs**).
+- Up to **1000 frequencies in user-defined order**, timed sweeps or single-frequency operation.
+- GNSS PPS and disciplined **10 MHz TCXO**. **No qualified timing/frequency lock → no transmission.**
+- **Wi-Fi and USB** configuration; stored programs run without a computer or internet.
+- SMA exciter output; optional **separate protected, cooled 10 W PA**, with harmonic filtering and final 50 MHz LPF.
+- Future telemetry and seven independently coded exciter outputs.
 
-**Status:** requirements and feasibility only. No schematic, PCB, firmware, or validated BOM yet. A future revision is intended for JLCPCB manufacture and bench testing; no fabrication is planned now.
+**Target: $50–100 per assembled exciter board**, using common parts with sustainable sourcing. Antenna, enclosure, adapter, cables, tax, freight, engineering, and PA are excluded. Draft components total about **$59**; PCB/assembly cost is not yet quoted.
 
-**Cost target: US$50–100 per assembled single-channel exciter board** in a small batch. This includes onboard Wi-Fi, GNSS, and clock discipline, but excludes the GNSS antenna, enclosure, cables, power adapter, shipping, tax, engineering, and the separate PA. This is a design target, not a validated BOM or quote.
+**Current draft:** RP2040 timing/USB controller, ESP32-S3 Wi-Fi, AD9850 DDS, and stocked MAX-M10S GNSS. Any suitable dual-frequency raw-data receiver may replace the single-frequency fallback when availability and cost allow; TEC is optional.
 
-Cost-first direction: an inexpensive Wi-Fi-capable microcontroller subsystem with USB and hardware-timed code output, one DDS, a dual-frequency raw-data u-blox receiver, and a disciplined 10 MHz voltage-controlled TCXO. No FPGA or premium timing receiver in the baseline.
+**Status:** editable KiCad circuit and **unrouted placement study**, plus a tested host program compiler. **Not ready to order.** Routing, firmware, sourcing and RF/timing validation remain. No fabrication order has been placed.
 
-See [requirements](docs/requirements.md) and [design considerations](docs/design.md) for details and unresolved decisions.
+[Revision A and remaining work](docs/revision-a.md) · [Sourcing](docs/sourcing.md) · [Requirements](docs/requirements.md)
+
+Open `hardware/prnboard.kicad_pro` in KiCad 10.

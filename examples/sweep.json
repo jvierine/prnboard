@@ -1,0 +1,12 @@
+{
+  "mode": "periodic",
+  "start_utc_unix": 0,
+  "period_s": 300,
+  "chip_us": 30,
+  "code": "00101101",
+  "frequencies": [
+    {"hz": 500000, "dwell_us": 2000000, "guard_us": 100},
+    {"hz": 10000000, "dwell_us": 2000000, "guard_us": 100},
+    {"hz": 30000000, "dwell_us": 2000000, "guard_us": 100}
+  ]
+}

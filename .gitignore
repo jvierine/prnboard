@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+references/*.pdf
+references/*.txt
+hardware/*-backups/
+hardware/*.kicad_prl
+validation/schematic-svg/
+validation/*.png
+validation/*.log
+.DS_Store

@@ -1,6 +1,6 @@
 # Preliminary design considerations
 
-These are candidates and estimates, not a frozen design or procurement BOM.
+The current concrete draft is described in [Revision A](revision-a.md), including its single-frequency GNSS fallback. The earlier alternatives below are background candidates, not the selected circuit or a procurement BOM.
 
 ## Architecture
 
@@ -8,7 +8,7 @@ The baseline is cost-first: an inexpensive Wi-Fi-capable MCU subsystem with USB 
 
 MCU selection is reopened to include Wi-Fi. Compare a common integrated Wi-Fi MCU module with a deterministic waveform MCU plus a separate common Wi-Fi module. RP2040/RP2350-class controllers alone do not meet the Wi-Fi requirement. Select the least expensive arrangement that demonstrates the required timing and USB behavior; no part is frozen. Code transitions must run from the disciplined clock domain, not an unrelated MCU crystal. Prove a supported external-clock arrangement and legal clock rates before selecting the MCU. Hardware-timed phase selection avoids per-chip USB traffic or firmware interrupt timing. USB configuration, flash storage, GNSS parsing, and diagnostics remain on the MCU.
 
-Preferred GNSS candidate: **NEO-F10N-00B-20**, which supports L1/L5 and full raw measurements through UBX-RXM-RAWX. The ordinary -00 variant does not provide the required full raw carrier-phase output. This supersedes MAX-M10S as the baseline candidate because dual-frequency TEC capability is now required. The F10N also supplies PPS for the discipline loop. Validate the exact module/firmware message set, simultaneous same-satellite dual-frequency observations, raw output bandwidth, timing, and antenna performance before freezing the design.
+Preferred GNSS candidate: **NEO-F10N-00B-20**, which supports L1/L5 and full raw measurements through UBX-RXM-RAWX. The ordinary -00 variant does not provide the required full raw carrier-phase output. This supersedes MAX-M10S as the baseline candidate for the optional dual-frequency TEC configuration. The F10N also supplies PPS for the discipline loop. Validate the exact module/firmware message set, simultaneous same-satellite dual-frequency observations, raw output bandwidth, timing, and antenna performance before freezing the design.
 
 Route its UART to the MCU for timing and raw-data export over USB. Preserve RAWX and broadcast navigation data (verify supported SFRBX output), with loss/overflow reporting and signal quality flags. TEC retrieval requires geometry-free dual-frequency processing, cycle-slip handling and bias treatment; relative phase TEC and calibrated absolute TEC are distinct products. Continuous standalone raw logging needs a separate storage-capacity decision and must not disturb transmit timing. A dual-band antenna is required and remains outside the board budget.
 
@@ -52,7 +52,7 @@ At an illustrative efficiency of 40–60%, 10 W RF corresponds to approximately 
 
 ## Cost target (USD)
 
-**User target: $50–100 per assembled single-channel exciter board.** Budget for a small batch (provisionally 10–50 boards), with onboard Wi-Fi, GNSS, and 10 MHz oscillator discipline. These are allocation ceilings, not quoted component prices:
+**User target: $50–100 per assembled single-channel exciter board.** Budget for a small batch (provisionally 10–50 boards), with onboard Wi-Fi, GNSS, and 10 MHz oscillator discipline; dual-frequency TEC is optional if sourcing allows. These are allocation ceilings, not quoted component prices:
 
 | Function | Target allocation per board |
 | --- | ---: |

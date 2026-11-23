@@ -1,0 +1,637 @@
+{
+  "status": "UNROUTED_REVIEW_DRAFT",
+  "missing_pads": [],
+  "unmapped_pads": [],
+  "footprints": [
+    {
+      "ref": "U1",
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
+    },
+    {
+      "ref": "U2",
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
+    },
+    {
+      "ref": "U3",
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
+    },
+    {
+      "ref": "C1",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C2",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C3",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C4",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C5",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C6",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "J1",
+      "library": "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12",
+      "physical_pads": 22
+    },
+    {
+      "ref": "R1",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R2",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R3",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R4",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U4",
+      "library": "Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm",
+      "physical_pads": 61
+    },
+    {
+      "ref": "U5",
+      "library": "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm",
+      "physical_pads": 8
+    },
+    {
+      "ref": "R5",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R6",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "Y1",
+      "library": "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm",
+      "physical_pads": 4
+    },
+    {
+      "ref": "R7",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C7",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C8",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C9",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C10",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C11",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C12",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C13",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C14",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C15",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C16",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C17",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C18",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U6",
+      "library": "RF_Module:ESP32-S3-WROOM-1",
+      "physical_pads": 62
+    },
+    {
+      "ref": "C19",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C20",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C21",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R8",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R9",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U7",
+      "library": "RF_GPS:ublox_MAX",
+      "physical_pads": 18
+    },
+    {
+      "ref": "C22",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C23",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "J2",
+      "library": "Connector_Coaxial:SMA_Amphenol_132134_Vertical",
+      "physical_pads": 5
+    },
+    {
+      "ref": "C24",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "L1",
+      "library": "Inductor_SMD:L_0805_2012Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R10",
+      "library": "Resistor_SMD:R_0805_2012Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C25",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U8",
+      "library": "Package_TO_SOT_SMD:SOT-23-6",
+      "physical_pads": 6
+    },
+    {
+      "ref": "R11",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R12",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C26",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C27",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "Y2",
+      "library": "Oscillator:Oscillator_SMD_Abracon_ASE-4Pin_3.2x2.5mm",
+      "physical_pads": 4
+    },
+    {
+      "ref": "C28",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C29",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R13",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R14",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C30",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R15",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U9",
+      "library": "Package_TO_SOT_SMD:SOT-23-6",
+      "physical_pads": 6
+    },
+    {
+      "ref": "C31",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C32",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R16",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R17",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U10",
+      "library": "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm",
+      "physical_pads": 25
+    },
+    {
+      "ref": "R18",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R19",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R20",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C33",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C34",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C35",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C36",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C37",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U11",
+      "library": "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm",
+      "physical_pads": 28
+    },
+    {
+      "ref": "R21",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R22",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R23",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C38",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C39",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C40",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C41",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "L2",
+      "library": "Inductor_SMD:L_0805_2012Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "L3",
+      "library": "Inductor_SMD:L_0805_2012Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "L4",
+      "library": "Inductor_SMD:L_0805_2012Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "L5",
+      "library": "Inductor_SMD:L_0805_2012Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C42",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C43",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C44",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R24",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C45",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R25",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U12",
+      "library": "Package_TO_SOT_SMD:SOT-23-6",
+      "physical_pads": 6
+    },
+    {
+      "ref": "U13",
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
+    },
+    {
+      "ref": "R26",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R27",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R28",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C46",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C47",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C48",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "J3",
+      "library": "Connector_Coaxial:SMA_Amphenol_132134_Vertical",
+      "physical_pads": 5
+    },
+    {
+      "ref": "U14",
+      "library": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+      "physical_pads": 16
+    },
+    {
+      "ref": "R29",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C49",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R30",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C50",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C51",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "U15",
+      "library": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+      "physical_pads": 8
+    },
+    {
+      "ref": "U16",
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
+    },
+    {
+      "ref": "R31",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R32",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R33",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R34",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C52",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C53",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "J4",
+      "library": "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical",
+      "physical_pads": 5
+    },
+    {
+      "ref": "J5",
+      "library": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+      "physical_pads": 6
+    },
+    {
+      "ref": "J6",
+      "library": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+      "physical_pads": 6
+    },
+    {
+      "ref": "J7",
+      "library": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+      "physical_pads": 6
+    },
+    {
+      "ref": "J8",
+      "library": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+      "physical_pads": 4
+    },
+    {
+      "ref": "R35",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "D1",
+      "library": "LED_SMD:LED_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R36",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "SW1",
+      "library": "Button_Switch_SMD:SW_SPST_TL3342",
+      "physical_pads": 4
+    },
+    {
+      "ref": "SW2",
+      "library": "Button_Switch_SMD:SW_SPST_TL3342",
+      "physical_pads": 4
+    },
+    {
+      "ref": "D2",
+      "library": "Package_TO_SOT_SMD:SOT-23-6",
+      "physical_pads": 6
+    },
+    {
+      "ref": "R37",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R38",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    }
+  ]
+}
