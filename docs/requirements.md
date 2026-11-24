@@ -6,6 +6,7 @@ This records the intended device, not verified hardware performance.
 
 - Aim for **US$50–100 per assembled single-channel exciter board** in a small batch, including onboard Wi-Fi, GNSS, and oscillator discipline. $100 is the initial ceiling; $50 is the stretch target.
 - Exclude antenna, enclosure, cables, adapter, shipping, tax, engineering, and separate PA. Validate with a sourced BOM and assembly quote before claiming compliance.
+- A roughly US$22 DDS is acceptable to the user; retain DDS in the baseline while keeping the overall $50–100 assembled-board target. Do not replace it with a clock/XOR architecture solely to save that component cost.
 - Use a cost-first MCU/DDS architecture; FPGA and premium GNSS timing receiver are not baseline requirements. Seven-channel population is deferred.
 
 ## Component availability and lifecycle

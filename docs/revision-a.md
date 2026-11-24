@@ -4,6 +4,8 @@ This is a circuit and software starting point, **not a board ready to order**. N
 
 ## Selected direction
 
+The user confirmed on 24 November 2026 that a roughly $22 DDS is acceptable. Retain the DDS baseline and the overall $50–100 assembled-board target. A clock-generator/XOR alternative was discussed but is not selected; any future architecture change should be justified by performance or sourcing as well as cost.
+
 | Block | Draft part | Why |
 | --- | --- | --- |
 | Deterministic control and USB | RP2040 + external flash | Separate waveform work from Wi-Fi; common inexpensive controller |
