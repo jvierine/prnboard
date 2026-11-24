@@ -1,0 +1,39 @@
+{
+  "scope": "PINNED_UPSTREAM_DECODER_ON_SIMULATED_IQ",
+  "upstream_commit": "bf39b2f70e53b39f1366e2a85367dbd673ce25d5",
+  "upstream_source_url": "https://raw.githubusercontent.com/jvierine/ionosonde/bf39b2f70e53b39f1366e2a85367dbd673ce25d5/prc_lib.py",
+  "upstream_source_sha256": "7e8d41ffdd9fb401e30bf07b0dc1b6f4757b0cee6e4d782a0c91e9ebfebcbf55",
+  "cases": [
+    {
+      "case": "rf_0",
+      "carrier_hz": 30000000,
+      "range_bin_us": 248,
+      "doppler_bin_hz": -131.23359580052494,
+      "doppler_wrapped_error_hz": 6.233595800524938,
+      "doppler_bin_width_hz": 65.61679790026247,
+      "code_periods": 4,
+      "pass": true
+    },
+    {
+      "case": "rf_1",
+      "carrier_hz": 500000,
+      "range_bin_us": 248,
+      "doppler_bin_hz": -131.23359580052494,
+      "doppler_wrapped_error_hz": 6.233595800524938,
+      "doppler_bin_width_hz": 65.61679790026247,
+      "code_periods": 4,
+      "pass": true
+    },
+    {
+      "case": "rf_2",
+      "carrier_hz": 10000000,
+      "range_bin_us": 248,
+      "doppler_bin_hz": -131.23359580052494,
+      "doppler_wrapped_error_hz": 6.233595800524938,
+      "doppler_bin_width_hz": 65.61679790026247,
+      "code_periods": 4,
+      "pass": true
+    }
+  ],
+  "pass_all": true
+}

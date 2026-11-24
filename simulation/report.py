@@ -1,0 +1,91 @@
+"""Render scientific diagnostics. Provenance belongs in HDF5/source, never plot text."""
+from pathlib import Path
+import json
+import numpy as np
+import h5py
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+ROOT=Path(__file__).resolve().parents[1]
+folder=ROOT/'validation/end-to-end'
+s=json.loads((folder/'summary.json').read_text())
+upstream=json.loads((folder/'upstream-summary.json').read_text())
+assert s['pass_all'] and upstream['pass_all']
+plt.rcParams.update({'font.size':11,'axes.spines.top':False,'axes.spines.right':False})
+with h5py.File(folder/'results.h5') as h:
+ g=h['rf_0'];z=g['map'][:];z=20*np.log10(np.maximum(z/z.max(),1e-5))
+ fig,ax=plt.subplots(figsize=(8,4.7),constrained_layout=True)
+ im=ax.pcolormesh(g['delay_grid'][:],g['doppler_grid'][:],z,vmin=-35,vmax=0,cmap='viridis',shading='auto')
+ ax.plot([g.attrs['truth_delay_us']],[g.attrs['truth_doppler_hz']],'rx',ms=10,mew=2,label='Injected echo')
+ ax.plot([g.attrs['delay_us']],[g.attrs['doppler_hz']],'wo',ms=9,mfc='none',label='Recovered peak')
+ ax.set(xlabel='Echo delay (µs)',ylabel='Doppler shift (Hz)',title='Reference simulation · 30 MHz carrier, 30 µs chips')
+ ax.legend(loc='lower right');fig.colorbar(im,ax=ax,label='Correlation relative to peak (dB)')
+ fig.savefig(ROOT/'docs/end-to-end-acquisition.png',dpi=180);plt.close(fig)
+ fig,axes=plt.subplots(2,1,figsize=(9,6.5),constrained_layout=True)
+ g=h['discipline'];t=g['t_s'][:]
+ axes[0].plot(t,g['frequency_error'][:]*1e9,color='#1d658d');axes[0].set(xlabel='Time (s)',ylabel='Frequency error (ppb)',title='Reference simulation · assumed oscillator and discipline loop',ylim=(-100,100))
+ axes[0].text(.98,.95,'Initial offset: +2000 ppb (outside plotted limits)',transform=axes[0].transAxes,ha='right',va='top',fontsize=9)
+ for k,kind in enumerate(['lock_loss','pps_loss','status_loss','pa_fault','cpu_crash']):
+  g=h[kind];axes[1].step(g['t_s'][:],g['tx_enable'][:]*.65+k,where='post',label=kind)
+ axes[1].axvline(2,color='black',ls='--',lw=1)
+ axes[1].set(yticks=np.arange(5)+.3,yticklabels=['Timing lock lost','PPS stops','Status stops','PA fault','CPU stops'],xlabel='Time (s)',title='Reference interlock states · faults injected at 2 s',xlim=(1.8,2.8))
+ axes[1].grid(axis='x',alpha=.25)
+ fig.savefig(ROOT/'docs/end-to-end-timing.png',dpi=180);plt.close(fig)
+rows='\n'.join(f"| {r['carrier_hz']/1e6:g} | {r['chip_us']:g} | {r['delay_us']:g} | {r['doppler_hz']:g} | {r['coherence']:.3f} |" for r in s['rf_cases'])
+faults='\n'.join(f"| {r['kind'].replace('_',' ')} | {(r['mute_time_s']-2)*1000:.0f} |" for r in s['fault_cases'])
+report=f'''# End-to-end reference test
+
+**Result: {'PASS' if s['pass_all'] else 'FAIL'} in simulation. This does not test board hardware or MCU firmware.**
+
+The test compiles an explicit binary code and frequency program to HDF5, closes the file, reloads it through a separate validator, schedules the saved table, emits 40-bit AD9850 serial frames, decodes those frames with a separate shift-register model, synthesizes a clocked 10-bit DAC waveform, and applies the nominal LC filter from the current circuit manifest. A delayed, Doppler-shifted, noisy echo is then downconverted and acquired using an independent receiver reference constructed from the original requested code, not the transmitted samples. No true echo delay or Doppler is provided to the receiver search.
+
+![Synthetic echo acquisition](end-to-end-acquisition.png)
+
+## Acquisition results
+
+Every RF case injects a **247 µs delay and +125 Hz Doppler**, with **−10 dB SNR per real RF sample**. The receiver samples complex baseband at 1 MHz and searches 0–500 µs delay and −250 to +250 Hz Doppler in 5 Hz steps. Acceptance is delay error ≤2 µs, Doppler error ≤5 Hz, and normalized correlation >0.65.
+
+| Carrier (MHz) | Chip (µs) | Recovered delay (µs) | Recovered Doppler (Hz) | Correlation |
+| --- | --- | --- | --- | --- |
+{rows}
+
+The recovered-delay offset includes finite sample-grid and modeled signal-path effects; this test does not establish sub-microsecond absolute ranging accuracy. A 1 µs search grid is not a 1 µs waveform range resolution: these are isolated-echo estimation tests, not tests of resolving nearby echoes. The long-chip case uses a shorter 31-chip test sequence; other RF cases use 127 chips or its 31-chip prefix. These are synthetic demonstration codes, not agreed station codes.
+
+The RF simulation runs at 100 MS/s for bounded 16–124 ms records. It does **not** simulate every RF sample of the full five-minute interval. A separate event-level schedule test checks the requested nonascending order (30, 0.5, 10 MHz), 2 s dwell, 100 µs end-of-dwell mute guards, 300 s recurrence, and restart at the next complete sweep after reacquisition. Integration tests also exercise 1000 table entries with a sufficiently long repeat interval, one-shot mode, and single-frequency mode. The absolute UTC/PPS association and leap-second handling are not implemented firmware and are not validated here.
+
+## Existing ionosonde decoder
+
+The same saved synthetic IQ was also decoded by the existing ionosonde `analyze_prc2` algorithm, using a pinned source snapshot and unchanged function bodies. All three carrier cases passed: the decoder recovered the 248 µs range bin. Its four-code-period FFT has 65.62 Hz Doppler bins and a 262.47 Hz periodic span; the reported −131.23 Hz bin is 6.23 Hz from the injected +125 Hz after circular wrapping, within half a bin. This short-record check does not establish high Doppler resolution or remove the code-period sampling ambiguity. Upstream source identity and hash are recorded in the machine-readable result.
+
+## Fault and negative tests
+
+The reference gate starts inhibited without PPS/status. Tests inject timing-lock loss, missing PPS, missing GNSS status, PA fault, and a frozen CPU while the qualified output remains latched. Software health checks run on a 10 ms model grid, with a 1.2 s PPS freshness limit, 1.5 s status freshness limit, 50 ms external heartbeat timeout, and 2.2 s external PPS timeout. These values are **assumptions**, not measured HC123 RC timing or a production firmware specification.
+
+| Fault at model time 2 s | Model delay to inhibit (ms) |
+| --- | ---: |
+{faults}
+
+A stuck phase modulator produces correlation **{s['negative_control']['coherence']:.3f}**, below acceptance, so the receiver rejects it. Integration tests also reject a corrupted carrier word, a corrupted phase table, and reversed serial bit order. These negative controls ensure that a passing acquisition is not automatic for arbitrary transmitter output.
+
+![Reference timing and interlock response](end-to-end-timing.png)
+
+## Discipline model
+
+An illustrative 600 s plant model includes a +2 ppm initial frequency error, +0.1 ppb/s drift, 10 ppm/V tuning slope, 12-bit DAC quantization, and 30 ns Gaussian PPS measurement noise. Its last-120-second RMS errors are **{s['discipline_case']['frequency_rms_ppb']:.1f} ppb** in frequency and **{s['discipline_case']['phase_rms_ns']:.1f} ns** in phase. Acceptance is <30 ppb and <100 ns. This is a separate feasibility model; it does not feed a measured oscillator trace into the RF acquisition cases, and it is not firmware running on the RP2040.
+
+## Reproduce
+
+```bash
+conda run -n base python simulation/run_all.py
+```
+
+Inputs and sampled diagnostics are in `validation/end-to-end/*.h5`; the machine-readable result is `validation/end-to-end/summary.json`. Source, circuit, and program hashes are stored as HDF5 metadata.
+
+## Remaining physical acceptance
+
+This model excludes PLL phase noise/spurs, physical PPS jitter and UTC association, real PIO/DMA execution and underruns, USB/Wi-Fi traffic, component tolerances/parasitics, amplifier/switch nonlinearity and leakage, power-supply noise, RF power calibration, EMC, thermal behavior, and PA open/short survival. It tests a new independent matched-filter receiver and the existing upstream PRN decoding functions on these binary-code synthetic records. It does not run the full upstream acquisition service, UHD, or every existing waveform/receiver configuration, so it does not establish complete drop-in compatibility.
+
+A real end-to-end acceptance test still requires firmware and a fabricated board, an attenuated SMA connection to a synchronized SDR receiver, spectrum/timing measurements at 0.5/10/30 MHz and the chip-duration boundaries, and physical fault injection while observing RF. Keep the PA out of the first conducted exciter test; qualify its power and mismatch protection separately. The current PCB remains unrouted and is not ready for fabrication.
+'''
+(ROOT/'docs/end-to-end.md').write_text(report)
+print('Wrote end-to-end report and two diagnostic figures')

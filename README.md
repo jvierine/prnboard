@@ -13,8 +13,8 @@ A standalone GNSS-timed PRN ionosonde exciter, intended to replace the transmit 
 
 **Current draft:** RP2040 timing/USB controller, ESP32-S3 Wi-Fi, AD9850 DDS, and stocked MAX-M10S GNSS. Any suitable dual-frequency raw-data receiver may replace the single-frequency fallback when availability and cost allow; TEC is optional.
 
-**Status:** editable KiCad circuit and **unrouted placement study**, plus a tested host program compiler. **Not ready to order.** Routing, firmware, sourcing and RF/timing validation remain. No fabrication order has been placed.
+**Status:** editable KiCad circuit and **unrouted placement study**, plus a tested host program compiler and end-to-end reference simulation. **Not ready to order.** Routing, firmware, sourcing and RF/timing validation remain. No fabrication order has been placed.
 
-[Revision A and remaining work](docs/revision-a.md) · [Sourcing](docs/sourcing.md) · [Requirements](docs/requirements.md)
+[End-to-end simulation and results](docs/end-to-end.md) · [Revision A and remaining work](docs/revision-a.md) · [Sourcing](docs/sourcing.md) · [Requirements](docs/requirements.md)
 
 Open `hardware/prnboard.kicad_pro` in KiCad 10.

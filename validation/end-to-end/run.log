@@ -1,0 +1,228 @@
+test_corrupted_carrier_rejected (test_end_to_end.E2ETests.test_corrupted_carrier_rejected) ... ok
+test_corrupted_phase_table_rejected (test_end_to_end.E2ETests.test_corrupted_phase_table_rejected) ... ok
+test_faults_mute_within_reference_limits (test_end_to_end.E2ETests.test_faults_mute_within_reference_limits) ... ok
+test_no_transmit_without_initial_timing (test_end_to_end.E2ETests.test_no_transmit_without_initial_timing) ... ok
+test_quantized_servo_reference (test_end_to_end.E2ETests.test_quantized_servo_reference) ... ok
+test_reacquisition_waits_for_boundary (test_end_to_end.E2ETests.test_reacquisition_waits_for_boundary) ... ok
+test_reversed_wire_order_detected (test_end_to_end.E2ETests.test_reversed_wire_order_detected) ... ok
+test_saved_program_order_and_guard (test_end_to_end.E2ETests.test_saved_program_order_and_guard) ... ok
+test_thousand_rows_and_single_once_modes (test_end_to_end.E2ETests.test_thousand_rows_and_single_once_modes) ... ok
+test_wire_decode_and_transfer_budget (test_end_to_end.E2ETests.test_wire_decode_and_transfer_budget) ... ok
+test_1000_frequencies (test_program.ProgramTests.test_1000_frequencies) ... ok
+test_boundaries (test_program.ProgramTests.test_boundaries) ... ok
+test_default_and_frequency_error (test_program.ProgramTests.test_default_and_frequency_error) ... ok
+test_invalid_codes_and_frequency (test_program.ProgramTests.test_invalid_codes_and_frequency) ... ok
+test_schedule_overlap (test_program.ProgramTests.test_schedule_overlap) ... ok
+test_serial_phase_bit (test_program.ProgramTests.test_serial_phase_bit) ... ok
+test_single_mode_and_hdf5 (test_program.ProgramTests.test_single_mode_and_hdf5) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.163s
+
+OK
+{
+  "scope": "REFERENCE_MODEL_SIMULATION_NOT_HARDWARE",
+  "rf_cases": [
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9123687369017284,
+      "carrier_hz": 30000000,
+      "actual_carrier_hz": 30000000.004656613,
+      "chip_us": 30.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9135617679265728,
+      "carrier_hz": 500000,
+      "actual_carrier_hz": 499999.9888241291,
+      "chip_us": 30.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9129063393523207,
+      "carrier_hz": 10000000,
+      "actual_carrier_hz": 10000000.009313226,
+      "chip_us": 30.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9038806260940224,
+      "carrier_hz": 30000000,
+      "actual_carrier_hz": 30000000.004656613,
+      "chip_us": 10.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.905868525284578,
+      "carrier_hz": 500000,
+      "actual_carrier_hz": 499999.9888241291,
+      "chip_us": 10.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.900750787620856,
+      "carrier_hz": 10000000,
+      "actual_carrier_hz": 10000000.009313226,
+      "chip_us": 10.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9158183207692179,
+      "carrier_hz": 30000000,
+      "actual_carrier_hz": 30000000.004656613,
+      "chip_us": 1000.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.124,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9160171169329945,
+      "carrier_hz": 500000,
+      "actual_carrier_hz": 499999.9888241291,
+      "chip_us": 1000.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.124,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9157965359571035,
+      "carrier_hz": 10000000,
+      "actual_carrier_hz": 10000000.009313226,
+      "chip_us": 1000.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.124,
+      "pass": true
+    }
+  ],
+  "fault_cases": [
+    {
+      "kind": "lock_loss",
+      "mute_time_s": 2.0,
+      "pass": true
+    },
+    {
+      "kind": "pps_loss",
+      "mute_time_s": 2.2,
+      "pass": true
+    },
+    {
+      "kind": "status_loss",
+      "mute_time_s": 2.5100000000000002,
+      "pass": true
+    },
+    {
+      "kind": "pa_fault",
+      "mute_time_s": 2.0,
+      "pass": true
+    },
+    {
+      "kind": "cpu_crash",
+      "mute_time_s": 2.04,
+      "pass": true
+    }
+  ],
+  "negative_control": {
+    "kind": "phase_modulator_stuck",
+    "detected": true,
+    "coherence": 0.0592779332797903
+  },
+  "schedule_checks": {
+    "user_order": true,
+    "repeat_300s": true,
+    "reacquisition_next_cycle": true
+  },
+  "discipline_case": {
+    "frequency_rms_ppb": 6.146662344584185,
+    "phase_rms_ns": 18.60189003018839,
+    "pass": true
+  },
+  "pass_all": true
+}
+{
+  "scope": "PINNED_UPSTREAM_DECODER_ON_SIMULATED_IQ",
+  "upstream_commit": "bf39b2f70e53b39f1366e2a85367dbd673ce25d5",
+  "upstream_source_url": "https://raw.githubusercontent.com/jvierine/ionosonde/bf39b2f70e53b39f1366e2a85367dbd673ce25d5/prc_lib.py",
+  "upstream_source_sha256": "7e8d41ffdd9fb401e30bf07b0dc1b6f4757b0cee6e4d782a0c91e9ebfebcbf55",
+  "cases": [
+    {
+      "case": "rf_0",
+      "carrier_hz": 30000000,
+      "range_bin_us": 248,
+      "doppler_bin_hz": -131.23359580052494,
+      "doppler_wrapped_error_hz": 6.233595800524938,
+      "doppler_bin_width_hz": 65.61679790026247,
+      "code_periods": 4,
+      "pass": true
+    },
+    {
+      "case": "rf_1",
+      "carrier_hz": 500000,
+      "range_bin_us": 248,
+      "doppler_bin_hz": -131.23359580052494,
+      "doppler_wrapped_error_hz": 6.233595800524938,
+      "doppler_bin_width_hz": 65.61679790026247,
+      "code_periods": 4,
+      "pass": true
+    },
+    {
+      "case": "rf_2",
+      "carrier_hz": 10000000,
+      "range_bin_us": 248,
+      "doppler_bin_hz": -131.23359580052494,
+      "doppler_wrapped_error_hz": 6.233595800524938,
+      "doppler_bin_width_hz": 65.61679790026247,
+      "code_periods": 4,
+      "pass": true
+    }
+  ],
+  "pass_all": true
+}
+Wrote end-to-end report and two diagnostic figures
+PASS: reference simulation and pinned upstream decoder. Hardware remains untested.

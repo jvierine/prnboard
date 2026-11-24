@@ -56,4 +56,4 @@ The generated component estimate is about **$59**, excluding PCB, assembly, attr
 
 ## Evidence
 
-KiCad schematic ERC: zero findings at the draft checkpoint. Footprint pin-number check: zero missing or unmapped pads. Seven host compiler tests pass. These checks do not validate timing, RF behavior, physical footprint suitability, firmware, or hardware safety. Detailed reports are under `validation/`.
+KiCad schematic ERC: zero findings at the draft checkpoint. Footprint pin-number check: zero missing or unmapped pads. The seven host compiler tests and ten additional integration tests pass. A [reference-model end-to-end test](end-to-end.md) also exercises RF acquisition and the existing upstream PRN decoding functions on synthetic samples. These checks do not validate timing, RF behavior, physical footprint suitability, firmware, or hardware safety. Detailed reports are under `validation/`.

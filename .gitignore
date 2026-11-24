@@ -8,3 +8,5 @@ validation/schematic-svg/
 validation/*.png
 validation/*.log
 .DS_Store
+
+validation/end-to-end/upstream-prc_lib.py

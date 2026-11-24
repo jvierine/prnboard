@@ -1,0 +1,165 @@
+{
+  "scope": "REFERENCE_MODEL_SIMULATION_NOT_HARDWARE",
+  "rf_cases": [
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9123687369017284,
+      "carrier_hz": 30000000,
+      "actual_carrier_hz": 30000000.004656613,
+      "chip_us": 30.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9135617679265728,
+      "carrier_hz": 500000,
+      "actual_carrier_hz": 499999.9888241291,
+      "chip_us": 30.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9129063393523207,
+      "carrier_hz": 10000000,
+      "actual_carrier_hz": 10000000.009313226,
+      "chip_us": 30.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9038806260940224,
+      "carrier_hz": 30000000,
+      "actual_carrier_hz": 30000000.004656613,
+      "chip_us": 10.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.905868525284578,
+      "carrier_hz": 500000,
+      "actual_carrier_hz": 499999.9888241291,
+      "chip_us": 10.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.900750787620856,
+      "carrier_hz": 10000000,
+      "actual_carrier_hz": 10000000.009313226,
+      "chip_us": 10.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.016,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9158183207692179,
+      "carrier_hz": 30000000,
+      "actual_carrier_hz": 30000000.004656613,
+      "chip_us": 1000.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.124,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9160171169329945,
+      "carrier_hz": 500000,
+      "actual_carrier_hz": 499999.9888241291,
+      "chip_us": 1000.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.124,
+      "pass": true
+    },
+    {
+      "delay_us": 248.0,
+      "doppler_hz": 125.0,
+      "coherence": 0.9157965359571035,
+      "carrier_hz": 10000000,
+      "actual_carrier_hz": 10000000.009313226,
+      "chip_us": 1000.0,
+      "truth_delay_us": 247.0,
+      "truth_doppler_hz": 125.0,
+      "snr_rf_db": -10.0,
+      "duration_s": 0.124,
+      "pass": true
+    }
+  ],
+  "fault_cases": [
+    {
+      "kind": "lock_loss",
+      "mute_time_s": 2.0,
+      "pass": true
+    },
+    {
+      "kind": "pps_loss",
+      "mute_time_s": 2.2,
+      "pass": true
+    },
+    {
+      "kind": "status_loss",
+      "mute_time_s": 2.5100000000000002,
+      "pass": true
+    },
+    {
+      "kind": "pa_fault",
+      "mute_time_s": 2.0,
+      "pass": true
+    },
+    {
+      "kind": "cpu_crash",
+      "mute_time_s": 2.04,
+      "pass": true
+    }
+  ],
+  "negative_control": {
+    "kind": "phase_modulator_stuck",
+    "detected": true,
+    "coherence": 0.0592779332797903
+  },
+  "schedule_checks": {
+    "user_order": true,
+    "repeat_300s": true,
+    "reacquisition_next_cycle": true
+  },
+  "discipline_case": {
+    "frequency_rms_ppb": 6.146662344584185,
+    "phase_rms_ns": 18.60189003018839,
+    "pass": true
+  },
+  "pass_all": true
+}
