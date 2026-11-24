@@ -2,6 +2,8 @@
 
 This is a circuit and software starting point, **not a board ready to order**. No hardware has been manufactured or measured. The KiCad PCB is an unrouted placement study and currently has layout violations. No Gerbers or fabrication release are provided.
 
+The required continuous LFM mode added on 24 November 2026 supersedes this draft's DDS selection as a complete architecture. See [LFM requirements and candidate review](lfm.md). The original CAD remains an AD9850 review draft; it has not been converted or validated for autonomous chirping.
+
 ## Selected direction
 
 The user confirmed on 24 November 2026 that a roughly $22 DDS is acceptable. Retain the DDS baseline and the overall $50–100 assembled-board target. A clock-generator/XOR alternative was discussed but is not selected; any future architecture change should be justified by performance or sourcing as well as cost.
