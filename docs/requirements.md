@@ -45,7 +45,7 @@ This records the intended device, not verified hardware performance.
 
 - Also support uninterrupted, phase-continuous linear frequency modulation, with typical chirp rates **100 kHz/s** and **500 kHz/s**. This is a required operating mode, separate from PRN-coded frequency-table operation.
 - The intended signal is cos(2π[f_start t + k t²/2] + φ0), with a continuously accumulated phase and no phase resets, RF blanking, or host/USB/Wi-Fi dependence within a chirp.
-- Do not treat the original AD9850 MCU-fed spot-frequency schedule as demonstrated compliance. Select and validate an autonomous fine-ramp DDS or an equivalently justified waveform engine before revising the hardware.
+- Do not treat the original AD9850 MCU-fed spot-frequency schedule as demonstrated compliance. Revision B selects AD9954 autonomous ramps; the register compiler and ideal phase model pass, while physical validation remains pending.
 - Quantify finite digital frequency/time resolution, achieved chirp rate, accumulated phase residual, and dechirped spurs against the ideal chirp. A hardware ramp engine is still quantized; the term smooth is not a claim of mathematically infinite resolution.
 - Define start/stop frequency, direction, GNSS/PPS start epoch, endpoint behavior, and any repetition period. Default endpoint behavior must not be silently chosen: a sawtooth flyback has a frequency discontinuity; a triangular sweep reverses chirp slope; holding the endpoint becomes a tone. Preserve the existing timing-lock inhibit in every mode.
 - Across 0.5–30 MHz, an upward sweep takes **295 s at 100 kHz/s** or **59 s at 500 kHz/s**, before any separately defined endpoint/return operation.

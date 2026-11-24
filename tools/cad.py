@@ -21,14 +21,14 @@ def libsym(p):
   s+=f'(pin {typ} line (at {x} {y} {a}) (length 5.08) (name {q(pin["label"])} (effects (font (size .7 .7)))) (number {q(pin["n"])} (effects (font (size .7 .7)))))\n'
  return s+'))\n'
 def head(id,title,libs):
- return f'(kicad_sch (version 20250114) (generator "eeschema") (uuid "{id}") (paper "A3") (title_block (title {q(title)}) (date "2026-11-23") (rev "A DRAFT")) (lib_symbols {libs})\n'
+ return f'(kicad_sch (version 20250114) (generator "eeschema") (uuid "{id}") (paper "A3") (title_block (title {q(title)}) (date "2026-11-23") (rev "B DRAFT")) (lib_symbols {libs})\n'
 sections=[]
 for sec in dict.fromkeys(p['section'] for p in parts):
  pp=[p for p in parts if p['section']==sec]
  # Avoid tiny symbols / overcrowding; maximum 12 components per review sheet.
  for k in range(0,len(pp),12):sections.append((sec+(' '+str(k//12+1) if len(pp)>12 else ''),pp[k:k+12]))
 parent=head(rid,'PRNboard — circuit review draft','')
-parent+=f'(text "REVIEW DRAFT — not for fabrication. Wi-Fi + USB; 100 MHz DDS clock; single-frequency GNSS fallback." (at 20 20 0) (effects (font (size 1.3 1.3)) (justify left)) (uuid "{uid("overview")}"))\n'
+parent+=f'(text "REVIEW DRAFT — not for fabrication. Wi-Fi + USB; 200 MHz AD9954 clock; single-frequency GNSS fallback." (at 20 20 0) (effects (font (size 1.3 1.3)) (justify left)) (uuid "{uid("overview")}"))\n'
 for si,(name,pp) in enumerate(sections):
  sid=uid('sheet/'+name);file=name.lower().replace(' ','_')+'.kicad_sch';s=head(sid,'PRNboard / '+name,''.join(libsym(p) for p in pp))
  for i,p in enumerate(pp):

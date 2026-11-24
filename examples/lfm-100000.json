@@ -1,0 +1,6 @@
+{
+  "start_hz": 500000,
+  "stop_hz": 30000000,
+  "rate_hz_s": 100000,
+  "endpoint": "hold"
+}

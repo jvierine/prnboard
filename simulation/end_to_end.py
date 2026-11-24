@@ -1,5 +1,5 @@
 """Executable reference-model E2E test, NOT firmware or hardware validation.
-Runs saved HDF5 -> virtual schedule -> AD9850 serial decode -> clocked DAC ->
+Runs saved HDF5 -> virtual schedule -> AD9954 serial decode -> clocked DAC ->
 nominal schematic LC filter -> delayed noisy echo -> independent range/Doppler RX.
 All waveform products use HDF5. Script provenance is stored in metadata only.
 """
@@ -12,49 +12,55 @@ from scipy import signal
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'host'))
 from program import save_program
-FS=100_000_000
+FS=200_000_000
 REF=10_000_000
 RXFS=1_000_000
 
 def load_program(path):
  """Consume the actual saved artifact, independently decode its DDS words."""
  with h5py.File(path) as h:
-  if h.attrs['format']!='prnboard-program' or h.attrs['version']!=1:raise ValueError('unsupported saved program')
+  if h.attrs['format']!='prnboard-program' or h.attrs['version']!=2:raise ValueError('unsupported saved program')
   if h.attrs['dds_clock_hz']!=FS or h.attrs['ticks_per_second']!=REF:raise ValueError('clock mismatch')
   p={k:h.attrs[k] for k in ['mode','start_utc_unix','chip_ticks','period_s']}
-  p['code']=h['code'][:];p['rows']=h['frequencies'][:];p['words']=h['dds_phase_words'][:]
+  p['code']=h['code'][:];p['rows']=h['frequencies'][:];p['words']=h['dds_phase_words'][:];p['frequency_words']=h['dds_frequency_words'][:]
+  config=dict(decode_serial(serial_bits(h['dds_config_writes'][key][:])) for key in h['dds_config_writes'])
+  if config.get(0)!=0x00000240 or config.get(1)!=0x0000a0:raise ValueError('invalid PRN mode, phase-clear state or x20 PLL setup')
  if not 100<=p['chip_ticks']<=10000 or not len(p['code']) or not np.isin(p['code'],[0,1]).all():raise ValueError('invalid code or chip period')
- if p['words'].shape!=(len(p['rows']),2,5):raise ValueError('bad DDS table shape')
+ if p['words'].shape!=(len(p['rows']),2,3) or p['frequency_words'].shape!=(len(p['rows']),5):raise ValueError('bad DDS table shape')
  end=0
  for i,row in enumerate(p['rows']):
   if int(row['offset_ticks'])!=end:raise ValueError('noncontiguous schedule')
   end+=int(row['dwell_ticks'])
   if int(row['guard_ticks'])>=int(row['dwell_ticks']):raise ValueError('invalid guard')
   if not 500000<=row['hz']<=30000000:raise ValueError('out-of-band carrier')
+  address,ftw=decode_serial(serial_bits(p['frequency_words'][i]))
+  if address!=4 or ftw!=int(row['ftw']):raise ValueError('invalid FTW0 register transaction')
+  if abs(ftw*FS/2**32-int(row['hz']))>FS/2**33+1e-8:raise ValueError('DDS frequency word does not match requested carrier')
   for phase in (0,1):
-   ftw,angle=decode_serial(serial_bits(p['words'][i,phase]))
-   if angle!=phase*16:raise ValueError('DDS word does not encode required BPSK phase')
-   if abs(ftw*FS/2**32-int(row['hz']))>FS/2**33+1e-8:raise ValueError('DDS frequency word does not match requested carrier')
+   address,pow=decode_serial(serial_bits(p['words'][i,phase]))
+   if address!=5 or pow!=phase*8192:raise ValueError('DDS phase write does not encode required BPSK phase')
  if p['mode']=='periodic' and end>int(p['period_s'])*REF:raise ValueError('overlapping schedule')
  return p
 
 def serial_bits(word):
- # Actual wire ordering of a byte-oriented DMA serializer: byte 0 first, LSB first.
- return np.unpackbits(np.asarray(word,dtype=np.uint8),bitorder='little')
+ return np.unpackbits(np.asarray(word,dtype=np.uint8),bitorder='big')
 
 def decode_serial(bits):
- # Receiver-side shift register, intentionally not int.from_bytes/compiler helper.
- if len(bits)!=40 or not np.isin(bits,[0,1]).all():raise ValueError('serial frame must be 40 bits')
+ # Independent MSB-first serial shift register; 8 instruction bits followed by register data.
+ if len(bits) not in (24,32,40,48) or not np.isin(bits,[0,1]).all():raise ValueError('invalid serial frame length/data')
  register=0
- for position,bit in enumerate(bits):register|=int(bit)<<position
- control=(register>>32)&255
- if control&7:raise ValueError('reserved/power-down/parallel control bits set')
- return register&0xffffffff,control>>3
+ for bit in bits:register=(register<<1)|int(bit)
+ width=len(bits)-8;address=register>>width;value=register&((1<<width)-1)
+ if address not in {0,1,4,5,6,7,8}:raise ValueError('unexpected/read/reserved instruction')
+ expected={0:32,1:24,4:32,5:16,6:32,7:40,8:40}[address]
+ if width!=expected:raise ValueError('incorrect register width')
+ if address==5 and value>=16384:raise ValueError('reserved POW bits set')
+ return address,value
 
 def serial_events(word,update_cycle):
  bits=serial_bits(word)
- # SPI 10 Mbit/s, rising edges 10 DDS cycles apart; 100 ns after last edge to UPDATE.
- edges=update_cycle-400+np.arange(40,dtype=np.int64)*10
+ # SPI10Mbit/s, 20 SYSCLK cycles/bit. CS separates every register transaction.
+ edges=update_cycle-len(bits)*20+np.arange(len(bits),dtype=np.int64)*20
  return edges,bits,update_cycle
 
 def schedule(p,cycles=2,ready_tick=0):
@@ -98,29 +104,29 @@ models held DAC samples. Parasitics, tolerance and amplifier response excluded.
  return b[0],a
 
 def render_dds(p,row_index,duration_s,mutation=None):
- row=p['rows'][row_index];step=int(p['chip_ticks'])*10;n=round(duration_s*FS)
+ row=p['rows'][row_index];step=int(p['chip_ticks'])*20;n=round(duration_s*FS)
  if step<1000:raise ValueError('unsupported chip duration')
- phase=np.zeros(n,dtype=np.int64);carrier_ftw=None;serial_preview=[]
+ phase=np.zeros(n,dtype=np.uint16);serial_preview=[]
+ _,carrier_ftw=decode_serial(serial_bits(p['frequency_words'][row_index]))
  for chip_index,update in enumerate(range(0,n,step)):
   symbol=int(p['code'][chip_index%len(p['code'])]);word=p['words'][row_index,symbol]
   edges,bits,update=serial_events(word,update)
   if edges[0] < (update-step+1):raise AssertionError('serial preload misses preceding chip budget')
   if mutation=='reverse_bits':bits=bits[::-1]
-  ftw,angle=decode_serial(bits)
+  address,angle=decode_serial(bits)
+  if address!=5:raise ValueError('phase transaction changed register')
   if mutation=='stuck_phase':angle=0
-  if carrier_ftw is None:carrier_ftw=ftw
-  if ftw!=carrier_ftw:raise AssertionError('carrier changes within dwell')
-  # Frequency was pre-tuned while muted before this dwell. Phase update latency 13 clocks.
-  a=update+13;b=min(n,update+step+13)
+  # Frequency was pre-tuned while muted before this dwell. Phase update latency 24 clocks (assumes aligned I/O UPDATE).
+  a=update+24;b=min(n,update+step+24)
   if a<n:phase[a:b]=angle
   if len(serial_preview)<3:serial_preview.append((update,edges.copy(),bits.copy()))
- phase[:13]=0
+ phase[:24]=0
  clock=np.arange(n,dtype=np.uint64)
  acc=(clock*np.uint64(carrier_ftw))&np.uint64(0xffffffff)
- acc=(acc+(phase.astype(np.uint64)<<27))&np.uint64(0xffffffff)
+ acc=(acc+(phase.astype(np.uint64)<<18))&np.uint64(0xffffffff)
  ideal=np.cos(acc.astype(np.float64)*(2*np.pi/2**32))
- # Ten-bit DAC, normalized bipolar AC; DC and absolute RF power are not modeled.
- dac=2*np.rint((ideal+1)*511.5)/1023-1
+ # Fourteen-bit DAC, normalized bipolar AC; DC and absolute RF power are not modeled.
+ dac=2*np.rint((ideal+1)*8191.5)/16383-1
  b,a=lc_filter();rf=2*signal.lfilter(b,a,dac)
  return rf,serial_preview,carrier_ftw
 

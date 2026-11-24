@@ -44,7 +44,7 @@ passive('R3','27','USB_DM','RP_DM',17,15,'Controller');passive('R4','27','USB_DP
 rp={n:'3V3D' for n in ['1','10','22','33','42','43','44','48','49']}
 rp.update({n:'1V1' for n in ['23','45','50']});rp.update({'57':'GND','19':'GND','20':'XIN','21':'XOUT','24':'SWCLK','25':'SWDIO','26':'RUN','46':'RP_DM','47':'RP_DP','51':'QSPI3','52':'QSPI_CLK','53':'QSPI0','54':'QSPI2','55':'QSPI1','56':'QSPI_CS'})
 # Physical pin numbers checked against RP2040 datasheet. UART0 Wi-Fi, UART1 GNSS.
-gpio={0:'WIFI_RX',1:'WIFI_TX',2:'I2C_SDA',3:'I2C_SCL',4:'GNSS_RX',5:'GNSS_TX',6:'PPS',7:'REF10',8:'DDS_DATA',9:'DDS_WCLK',10:'DDS_UPDATE',11:'DDS_RESET',12:'TX_REQUEST',13:'QUALIFIED',14:'HEARTBEAT',15:'PPS_ALIVE',16:'WD_ALIVE',17:'PA_OK',18:'GPIO0',19:'GPIO1',20:'CLK_IRQ_N',21:'CLK_OE_N',22:'TX_ENABLE',23:'WIFI_EN',24:'WIFI_BOOT',25:'STATUS_LED',26:'ADC_PA_FWD',27:'ADC_PA_REV'}
+gpio={0:'WIFI_RX',1:'WIFI_TX',2:'I2C_SDA',3:'I2C_SCL',4:'GNSS_RX',5:'GNSS_TX',6:'PPS',7:'REF10',8:'DDS_DATA',9:'DDS_WCLK',10:'DDS_UPDATE',11:'DDS_RESET',12:'TX_REQUEST',13:'QUALIFIED',14:'HEARTBEAT',15:'PPS_ALIVE',16:'WD_ALIVE',17:'PA_OK',18:'GPIO0',19:'GPIO1',20:'DDS_PS0',21:'DDS_SYNC_CLK',22:'TX_ENABLE',23:'WIFI_EN',24:'WIFI_BOOT',25:'STATUS_LED',26:'ADC_PA_FWD',27:'ADC_PA_REV',28:'DDS_CS_N',29:'DDS_SDO'}
 for p in symbol('MCU_RaspberryPi','RP2040')[0]:
  if p['label'].startswith('GPIO'):
   n=int(p['label'][4:].split('/')[0]);rp[p['n']]=gpio.get(n)
@@ -77,21 +77,33 @@ cap('C28','3V3RF',61,34,'Reference');passive('C29','1n','OSC_SINE','SINE_AC',66,
 add('U9','TLV3501AIDBVR','Reference',75,38,pins=['IN-','GND','IN+','VCC','OUT','SHDN'],nets={'1':'MID','2':'GND','3':'SINE_AC','4':'3V3RF','5':'REF10','6':'GND'},fp='Package_TO_SOT_SMD:SOT-23-6',cost=2.2)
 cap('C31','3V3RF',77,34,'Reference');cap('C32','3V3RF',45,34,'Reference')
 passive('R16','1k','I2C_SDA','3V3D',38,32,'Reference');passive('R17','1k','I2C_SCL','3V3D',38,35,'Reference')
-# Si5351C QFN20: manufacturer datasheet section 10.3, exposed ground pad 21.
-clknames=['XA','XB','INTR','SCL','SDA','CLKIN','OEB','CLK3','CLK2','VDDOB','VDDOA','CLK1','CLK0','VDDOD','CLK7','CLK6','CLK5','VDDOC','CLK4','VDD','GND']
-clknets={'3':'CLK_IRQ_N','4':'I2C_SCL','5':'I2C_SDA','6':'REF10','7':'CLK_OE_N','10':'3V3RF','11':'3V3RF','13':'DDS_CLK_RAW','14':'3V3RF','18':'3V3RF','20':'3V3RF','21':'GND'}
-add('U10','SI5351C-B-GM','Reference',75,48,pins=[dict(n=str(i+1),label=n,type='power_in' if n.startswith('VDD') or n=='GND' else ('output' if n.startswith('CLK') and n!='CLKIN' else 'input')) for i,n in enumerate(clknames)],nets=clknets,fp='Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm',cost=6.,lcsc='C3608122',note='CLKIN 10MHz -> PLLA800MHz -> MS0 /8 =100MHz. No free-running fallback for TX. Check 10MHz lower boundary with oscillator tolerance.')
-passive('R18','10k','CLK_OE_N','3V3D',80,43,'Reference');passive('R19','10k','CLK_IRQ_N','3V3D',83,43,'Reference');passive('R20','33','DDS_CLK_RAW','DDS_CLK',69,48,'Reference')
-for i,(x,y) in enumerate([(73,44),(78,46),(78,50),(75,52),(71,50)],33):cap('C'+str(i),'3V3RF',x,y,'Reference')
-# DDS 100MHz at 3.3V: below 110MHz rated maximum; serial words load phase without resetting accumulator.
-dds={'1':'GND','2':'GND','3':'GND','4':'3V3D','5':'GND','6':'3V3RF','7':'DDS_WCLK','8':'DDS_UPDATE','9':'DDS_CLK','10':'GND','11':'3V3RF','12':'RSET','15':'GND','16':'GND','18':'3V3RF','19':'GND','20':'DAC_B','21':'DAC_A','22':'DDS_RESET','23':'3V3RF','24':'GND','25':'DDS_DATA','26':'GND','27':'GND','28':'GND'}
-add('U11','AD9850BRSZ','DDS',58,54,'Interface','AD9850',dds,mpn='AD9850BRSZ',cost=21.62,lcsc='C18731')
-passive('R21','1k96','RSET','GND',54,46,'DDS');passive('R22','49R9','DAC_B','GND',52,50,'DDS');passive('R23','49R9','DAC_A','GND',63,57,'DDS')
-for i,(x,y) in enumerate([(53,53),(53,56),(63,50),(63,53)],38):cap('C'+str(i),'3V3RF',x,y,'DDS')
+# AD9954 uses its own x20 PLL: 10 MHz disciplined reference -> 200 MHz DDS.
+# Separate analog/digital 1.8V regulators follow manufacturer supply guidance.
+for ref,rail,x,y in [('U10','1V8A',72,47),('U17','1V8D',47,47)]:
+ add(ref,'AP2112K-1.8','Power',x,y,pins=[dict(n=str(i+1),label=n,type=t) for i,(n,t) in enumerate([('VIN','power_in'),('GND','power_in'),('EN','input'),('NC','no_connect'),('VOUT','power_out')])],nets={'1':'3V3RF','2':'GND','3':'3V3RF','5':rail},fp='Package_TO_SOT_SMD:SOT-23-5',mpn='AP2112K-1.8TRG1',cost=.20,note='Input from regulated 3V3RF; check rail sequencing and decoupling.')
+cap('C33','3V3RF',69,44,'Power','4u7');cap('C34','1V8A',75,47,'Power','4u7')
+cap('C35','3V3RF',44,47,'Power','4u7');cap('C36','1V8D',50,47,'Power','4u7')
+# Reference swing must be 100..1000mVpp, not 3.3V CMOS. Divider precedes AC coupling.
+passive('R18','330','REF10','REF_ATT',72,43,'Reference')
+passive('R19','100','REF_ATT','GND',76,43,'Reference')
+passive('C37','100n','REF_ATT','DDS_REF',66,47,'Reference','C')
+passive('C54','100n','REF_N','1V8A',64,43,'DDS','C')
+# x20 PLL external loop compensation per AD9954 datasheet Table4:243ohm +10nF.
+passive('R20','243','DDS_PLL','PLL_RC',54,44,'DDS');cap('C55','PLL_RC',57,44,'DDS','10n')
+dds={'1':'DDS_UPDATE','2':'1V8D','3':'GND','4':'1V8A','5':'GND','6':'1V8A','7':'GND','8':'REF_N','9':'DDS_REF','11':'GND','12':'DDS_PLL','13':'1V8A','14':'GND','15':'GND','16':'1V8A','17':'GND','18':'1V8A','19':'1V8A','20':'DAC_B','21':'DAC_A','22':'GND','23':'DAC_BP','24':'RSET','25':'1V8A','26':'GND','27':'1V8A','29':'1V8A','30':'GND','31':'GND','32':'GND','33':'GND','34':'1V8D','35':'GND','36':'DDS_RESET','37':'GND','38':'DDS_SDO','39':'DDS_CS_N','40':'DDS_WCLK','41':'DDS_DATA','42':'GND','43':'3V3D','44':'GND','45':'DDS_SYNC_CLK','46':'GND','47':'DDS_PS0','48':'GND','49':'GND'}
+add('U11','AD9954YSVZ-REEL7','DDS',58,55,'Interface','AD9954',dds,mpn='AD9954YSVZ-REEL7',cost=45.1932,lcsc='C496484',note='14-bit DAC; autonomous LFM; x20 PLL200MHz. Core1.8V, IO3.3V. DAC returns to AVDD, not ground.')
+passive('R21','3k92','RSET','GND',51,49,'DDS')
+passive('R22','49R9','DAC_B','1V8A',51,59,'DDS');passive('R23','49R9','DAC_A','1V8A',65,59,'DDS')
+for i,(rail,x,y) in enumerate([('1V8A',53,51),('1V8A',53,54),('1V8A',53,57),('1V8A',58,49),('1V8A',62,49),('1V8A',63,52),('1V8A',63,55),('1V8A',62,60),('1V8A',58,61),('1V8D',53,61),('1V8D',58,64),('3V3D',63,62)],56):cap('C'+str(i),rail,x,y,'DDS')
+cap('C38','DAC_BP',54,63,'DDS')
+passive('R39','10k','DDS_CS_N','3V3D',43,51,'DDS');passive('R40','10k','DDS_PS0','GND',43,55,'DDS')
+# Correct library electrical types against manufacturer pin table, including SYNC_IN.
+for pin in next(p for p in parts if p['ref']=='U11')['pins']:
+ if pin['n'] in ['1','44']:pin['type']='input'
 # Seven-pole Butterworth 35MHz reconstruction, nominal matched 50ohm source and load.
 for i,(val,a,b,x) in enumerate([('100n','DAC_A','LP1',65),('390n','LP1','LP2',71),('390n','LP2','LP3',77),('100n','LP3','LP_OUT',83)],2):passive('L'+str(i),val,a,b,x,59,'RF','L',.12)
 for i,(val,net,x) in enumerate([('110p','LP1',68),('180p','LP2',74),('110p','LP3',80)],42):cap('C'+str(i),net,x,63,'RF',val)
-passive('R24','49R9','LP_OUT','GND',86,59,'RF');passive('C45','100n','LP_OUT','RF_IN_AC',87,63,'RF','C')
+passive('R24','49R9','LP_OUT','1V8A',86,59,'RF');passive('C45','100n','LP_OUT','RF_IN_AC',87,63,'RF','C')
 passive('R25','10k','RF_IN_AC','MID',87,67,'RF')
 # SPDT mute before driver, mute selects DC bias. Exact switch truth table must be checked before release.
 add('U12','TS5A3159DBVR','RF',81,70,'Analog_Switch','TS5A3159DBV',{'1':'RF_IN_AC','2':'GND','3':'AMP_IN','4':'MID','5':'3V3RF','6':'TX_ENABLE'},mpn='TS5A3159DBVR',cost=.5,note='Pin1 NO, pin3 COM, pin4 NC: high enables RF; low selects MID.')
@@ -131,10 +143,6 @@ for p in parts:
  if p['ref']=='J7':p['y']=65
 
 for p in parts:
- if p['ref']=='U10':
-  for pin in p['pins']:
-   if pin['label']=='INTR':pin['type']='open_collector'
-   if pin['label']=='SDA':pin['type']='bidirectional'
  if p['ref']=='U9':
   for pin in p['pins']:pin['type']={'1':'input','2':'power_in','3':'input','4':'power_in','5':'output','6':'input'}[pin['n']]
  if p['ref']=='U16':
@@ -142,6 +150,6 @@ for p in parts:
 # Produce JSON, not CSV. Every cost is an estimate unless its source is in sourcing.json.
 if __name__=='__main__':
  out=ROOT/'hardware';out.mkdir(exist_ok=True)
- d=dict(revision='A-draft',status='NOT_FOR_FABRICATION',width_mm=95,height_mm=85,parts=parts)
+ d=dict(revision='B-draft',status='NOT_FOR_FABRICATION',width_mm=95,height_mm=85,parts=parts)
  (out/'circuit.json').write_text(json.dumps(d,indent=2)+'\n')
  print(len(parts),'components; estimated component subtotal $',round(sum(p['cost_usd'] for p in parts),2))

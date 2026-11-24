@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "9bb36d1a-2817-54aa-9448-fa3f4c7ea009") (paper "A3") (title_block (title "PRNboard / Interlock 2") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:C52" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "9bb36d1a-2817-54aa-9448-fa3f4c7ea009") (paper "A3") (title_block (title "PRNboard / Interlock 2") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:C52" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "C" (at 0 6.35 0) (effects (font (size 1 1)))) (property "Value" "100n" (at 0 8.89 0) (effects (font (size 1 1))))
 (symbol "C52_0_1" (rectangle (start -10.16 -3.81) (end 10.16 3.81) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "C52_1_1"

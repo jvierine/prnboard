@@ -26,21 +26,24 @@ class E2ETests(unittest.TestCase):
   cfg=dict(self.cfg,mode='single',frequencies=[{'hz':10000000,'guard_us':0}]);save_program(cfg,self.path)
   self.assertEqual(len(schedule(load_program(self.path))),1)
  def test_corrupted_phase_table_rejected(self):
-  with h5py.File(self.path,'r+') as h:h['dds_phase_words'][0,1,4]=64
+  with h5py.File(self.path,'r+') as h:h['dds_phase_words'][0,1,1]=64
   with self.assertRaises(ValueError):load_program(self.path)
  def test_corrupted_carrier_rejected(self):
-  with h5py.File(self.path,'r+') as h:h['dds_phase_words'][0,0,0]=0
+  with h5py.File(self.path,'r+') as h:h['dds_frequency_words'][0,1]=0
   with self.assertRaises(ValueError):load_program(self.path)
  def test_wire_decode_and_transfer_budget(self):
   p=load_program(self.path)
   for phase in (0,1):
    edges,bits,update=serial_events(p['words'][0,phase],1000)
-   self.assertEqual(int(edges[0]),600);self.assertEqual(int(edges[-1]),990)
-   ftw,decoded=decode_serial(bits);self.assertEqual(decoded,phase*16)
-   self.assertEqual(ftw,int(p['rows'][0]['ftw']))
+   self.assertEqual(int(edges[0]),520);self.assertEqual(int(edges[-1]),980)
+   address,decoded=decode_serial(bits);self.assertEqual(decoded,phase*8192)
+   self.assertEqual(address,5)
   render_dds(p,0,.0001) # Ten minimum-length chips through actual frame decoder/DAC/filter.
  def test_reversed_wire_order_detected(self):
   with self.assertRaises((ValueError,AssertionError)):render_dds(load_program(self.path),0,.0001,'reverse_bits')
+ def test_wrong_pll_setup_is_rejected(self):
+  with h5py.File(self.path,'r+') as h:h['dds_config_writes/1'][-1]=0
+  with self.assertRaises(ValueError):load_program(self.path)
  def test_no_transmit_without_initial_timing(self):
   g=Interlock()
   for t in np.arange(0,2,.01):self.assertFalse(g.step(t))

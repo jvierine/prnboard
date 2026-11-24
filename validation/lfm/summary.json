@@ -1,0 +1,62 @@
+{
+  "scope": "AD9954_REGISTER_REFERENCE_MODEL_NOT_HARDWARE",
+  "cases": [
+    {
+      "start_hz": 500000,
+      "stop_hz": 30000000,
+      "requested_rate_hz_s": 100000,
+      "ftw0": 10737418,
+      "ftw1": 644245094,
+      "delta": 7,
+      "timer": 163,
+      "achieved_rate_numerator": 1068115234375,
+      "achieved_rate_denominator": 10682368,
+      "achieved_rate_hz_s": 99988.61997405444,
+      "rate_error_ppm": -113.80025945562089,
+      "frequency_step_hz": 0.3259629011154175,
+      "update_interval_s": 3.26e-06,
+      "endpoint": "hold",
+      "duration_to_hold_s": 295.03357296,
+      "max_phase_residual_rad": 8.345947642219146e-07,
+      "phase_continuous": true,
+      "endpoint_holds": true,
+      "beat_hz": -74.98904557700833,
+      "expected_beat_hz": -74.98861997405444,
+      "dechirped_phase_rms_rad": 0.004909344363263212,
+      "wrong_rate_rejected": true,
+      "pass": true
+    },
+    {
+      "start_hz": 500000,
+      "stop_hz": 30000000,
+      "requested_rate_hz_s": 500000,
+      "ftw0": 10737418,
+      "ftw1": 644245094,
+      "delta": 32,
+      "timer": 149,
+      "achieved_rate_numerator": 152587890625,
+      "achieved_rate_denominator": 305152,
+      "achieved_rate_hz_s": 500038.96623649856,
+      "rate_error_ppm": 77.93247299714423,
+      "frequency_step_hz": 1.4901161193847656,
+      "update_interval_s": 2.98e-06,
+      "endpoint": "hold",
+      "duration_to_hold_s": 58.99539972,
+      "max_phase_residual_rad": 3.4875967009729086e-06,
+      "phase_continuous": true,
+      "endpoint_holds": true,
+      "beat_hz": -475.03817742392334,
+      "expected_beat_hz": -475.03896623649854,
+      "dechirped_phase_rms_rad": 0.005034940071708623,
+      "wrong_rate_rejected": true,
+      "pass": true
+    }
+  ],
+  "pass_all": true,
+  "limitations": [
+    "No firmware execution",
+    "PLL/noise/analog RF not modeled in LFM test",
+    "Phase origin assumes aligned PS0 and first-delta seed; bench verification required",
+    "Nominal-rate error is exported, not concealed by recalibrating the requested rate"
+  ]
+}

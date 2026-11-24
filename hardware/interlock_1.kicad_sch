@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "ddeb8243-c85f-5ee7-8691-cb54c046214e") (paper "A3") (title_block (title "PRNboard / Interlock 1") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:U14" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "ddeb8243-c85f-5ee7-8691-cb54c046214e") (paper "A3") (title_block (title "PRNboard / Interlock 1") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:U14" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "U" (at 0 8.89 0) (effects (font (size 1 1)))) (property "Value" "74HC123D" (at 0 11.43 0) (effects (font (size 1 1))))
 (symbol "U14_0_1" (rectangle (start -10.16 -6.35) (end 10.16 6.35) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "U14_1_1"

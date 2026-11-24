@@ -44,7 +44,7 @@ z.SetLayerSet(ls);z.SetDoNotAllowTracks(True);z.SetDoNotAllowVias(True);z.SetDoN
 o=z.Outline();o.NewOutline()
 for x,y in [(37,0),(61,0),(61,8),(37,8)]:o.Append(mm(x),mm(y))
 b.Add(z)
-t=k.PCB_TEXT(b);t.SetText('PRNboard A - PLACEMENT DRAFT');t.SetPosition(v(48,82));t.SetTextSize(v(1,1));t.SetTextThickness(mm(.15));t.SetLayer(k.F_SilkS);b.Add(t)
+t=k.PCB_TEXT(b);t.SetText('PRNboard B - PLACEMENT DRAFT');t.SetPosition(v(48,82));t.SetTextSize(v(1,1));t.SetTextThickness(mm(.15));t.SetLayer(k.F_SilkS);b.Add(t)
 k.SaveBoard(str(ROOT/'hardware/prnboard.kicad_pcb'),b)
 (ROOT/'validation/footprints.json').write_text(json.dumps(report,indent=2)+'\n')
 print('Footprint pin check:',len(report['missing_pads']),'missing,',len(report['unmapped_pads']),'unmapped')

@@ -1,3 +1,7 @@
+# Historical revision — superseded
+
+The current circuit is [Revision B](revision-b.md). The following describes the earlier AD9850 draft.
+
 # Revision A engineering draft
 
 This is a circuit and software starting point, **not a board ready to order**. No hardware has been manufactured or measured. The KiCad PCB is an unrouted placement study and currently has layout violations. No Gerbers or fabrication release are provided.

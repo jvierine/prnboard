@@ -2,7 +2,7 @@
 
 **Result: PASS in simulation. This does not test board hardware or MCU firmware.**
 
-The test compiles an explicit binary code and frequency program to HDF5, closes the file, reloads it through a separate validator, schedules the saved table, emits 40-bit AD9850 serial frames, decodes those frames with a separate shift-register model, synthesizes a clocked 10-bit DAC waveform, and applies the nominal LC filter from the current circuit manifest. A delayed, Doppler-shifted, noisy echo is then downconverted and acquired using an independent receiver reference constructed from the original requested code, not the transmitted samples. No true echo delay or Doppler is provided to the receiver search.
+The test compiles an explicit binary code and frequency program to HDF5, closes the file, reloads it through a separate validator, schedules the saved table, emits AD9954 register frames (40-bit frequency and 24-bit phase writes), decodes those frames with a separate shift-register model, synthesizes a clocked 14-bit DAC waveform, and applies the nominal LC filter from the current circuit manifest. A delayed, Doppler-shifted, noisy echo is then downconverted and acquired using an independent receiver reference constructed from the original requested code, not the transmitted samples. No true echo delay or Doppler is provided to the receiver search.
 
 ![Synthetic echo acquisition](end-to-end-acquisition.png)
 
@@ -12,19 +12,19 @@ Every RF case injects a **247 µs delay and +125 Hz Doppler**, with **−10 dB S
 
 | Carrier (MHz) | Chip (µs) | Recovered delay (µs) | Recovered Doppler (Hz) | Correlation |
 | --- | --- | --- | --- | --- |
-| 30 | 30 | 248 | 125 | 0.912 |
-| 0.5 | 30 | 248 | 125 | 0.914 |
-| 10 | 30 | 248 | 125 | 0.913 |
-| 30 | 10 | 248 | 125 | 0.904 |
-| 0.5 | 10 | 248 | 125 | 0.906 |
-| 10 | 10 | 248 | 125 | 0.901 |
-| 30 | 1000 | 248 | 125 | 0.916 |
-| 0.5 | 1000 | 248 | 125 | 0.916 |
-| 10 | 1000 | 248 | 125 | 0.916 |
+| 30 | 30 | 248 | 125 | 0.951 |
+| 0.5 | 30 | 248 | 125 | 0.952 |
+| 10 | 30 | 248 | 125 | 0.952 |
+| 30 | 10 | 248 | 125 | 0.941 |
+| 0.5 | 10 | 248 | 125 | 0.947 |
+| 10 | 10 | 248 | 125 | 0.941 |
+| 30 | 1000 | 248 | 125 | 0.955 |
+| 0.5 | 1000 | 248 | 125 | 0.955 |
+| 10 | 1000 | 248 | 125 | 0.955 |
 
 The recovered-delay offset includes finite sample-grid and modeled signal-path effects; this test does not establish sub-microsecond absolute ranging accuracy. A 1 µs search grid is not a 1 µs waveform range resolution: these are isolated-echo estimation tests, not tests of resolving nearby echoes. The long-chip case uses a shorter 31-chip test sequence; other RF cases use 127 chips or its 31-chip prefix. These are synthetic demonstration codes, not agreed station codes.
 
-The RF simulation runs at 100 MS/s for bounded 16–124 ms records. It does **not** simulate every RF sample of the full five-minute interval. A separate event-level schedule test checks the requested nonascending order (30, 0.5, 10 MHz), 2 s dwell, 100 µs end-of-dwell mute guards, 300 s recurrence, and restart at the next complete sweep after reacquisition. Integration tests also exercise 1000 table entries with a sufficiently long repeat interval, one-shot mode, and single-frequency mode. The absolute UTC/PPS association and leap-second handling are not implemented firmware and are not validated here.
+The RF simulation runs at 200 MS/s for bounded 16–124 ms records. It does **not** simulate every RF sample of the full five-minute interval. A separate event-level schedule test checks the requested nonascending order (30, 0.5, 10 MHz), 2 s dwell, 100 µs end-of-dwell mute guards, 300 s recurrence, and restart at the next complete sweep after reacquisition. Integration tests also exercise 1000 table entries with a sufficiently long repeat interval, one-shot mode, and single-frequency mode. The absolute UTC/PPS association and leap-second handling are not implemented firmware and are not validated here.
 
 ## Existing ionosonde decoder
 
@@ -42,7 +42,7 @@ The reference gate starts inhibited without PPS/status. Tests inject timing-lock
 | pa fault | 0 |
 | cpu crash | 40 |
 
-A stuck phase modulator produces correlation **0.059**, below acceptance, so the receiver rejects it. Integration tests also reject a corrupted carrier word, a corrupted phase table, and reversed serial bit order. These negative controls ensure that a passing acquisition is not automatic for arbitrary transmitter output.
+A stuck phase modulator produces correlation **0.062**, below acceptance, so the receiver rejects it. Integration tests also reject a corrupted carrier word, a corrupted phase table, and reversed serial bit order. These negative controls ensure that a passing acquisition is not automatic for arbitrary transmitter output.
 
 ![Reference timing and interlock response](end-to-end-timing.png)
 

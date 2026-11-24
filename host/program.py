@@ -7,7 +7,7 @@ import argparse,json,math
 import h5py
 import numpy as np
 TICKS_PER_SECOND=10_000_000
-DDS_CLOCK_HZ=100_000_000
+DDS_CLOCK_HZ=200_000_000
 
 def integer(value,name):
  if isinstance(value,bool) or not isinstance(value,int):raise ValueError(name+' must be an integer')
@@ -48,19 +48,29 @@ def compile_program(cfg):
  if mode=='periodic' and (period<=0 or offset>period*TICKS_PER_SECOND):raise ValueError('sweep does not fit repeat interval')
  return dict(mode=mode,start=start,chip_ticks=chip,code=np.fromiter((int(c) for c in code),dtype=np.uint8),rows=result,period_s=period)
 
-def dds_bytes(ftw,chip):
- """AD9850 serial order: FTW bits 0..31, control bits 0..7; bits within bytes LSB first."""
- if not 0<=ftw<2**32 or chip not in (0,1):raise ValueError('invalid DDS word')
- return ftw.to_bytes(4,'little')+bytes([0x80 if chip else 0])
+def dds_frequency_bytes(ftw):
+ """AD9954 MSB-first FTW0 register write; separate CS-delimited transaction."""
+ if not 0<=ftw<2**32:raise ValueError('invalid frequency word')
+ return bytes([0x04])+int(ftw).to_bytes(4,'big')
+
+def dds_phase_bytes(chip):
+ """AD9954 MSB-first POW0 write: 0 or 8192 gives exactly 0 or 180 degrees."""
+ if chip not in (0,1):raise ValueError('invalid binary phase')
+ return bytes([0x05])+int(chip*8192).to_bytes(2,'big')
 
 def save_program(cfg,path):
  p=compile_program(cfg)
  dt=np.dtype([('hz','<u4'),('offset_ticks','<u8'),('dwell_ticks','<u8'),('guard_ticks','<u8'),('ftw','<u4')])
  with h5py.File(path,'w') as f:
-  f.attrs.update(format='prnboard-program',version=1,mode=p['mode'],start_utc_unix=p['start'],chip_ticks=p['chip_ticks'],ticks_per_second=TICKS_PER_SECOND,dds_clock_hz=DDS_CLOCK_HZ,period_s=p['period_s'],status='HOST_REFERENCE_FORMAT_NOT_FIRMWARE_UPLOAD')
+  f.attrs.update(format='prnboard-program',version=2,dds_part='AD9954',mode=p['mode'],start_utc_unix=p['start'],chip_ticks=p['chip_ticks'],ticks_per_second=TICKS_PER_SECOND,dds_clock_hz=DDS_CLOCK_HZ,period_s=p['period_s'],status='HOST_REFERENCE_FORMAT_NOT_FIRMWARE_UPLOAD')
   f.create_dataset('code',data=p['code'])
   f.create_dataset('frequencies',data=np.array(p['rows'],dtype=dt))
-  f.create_dataset('dds_phase_words',data=np.array([[list(dds_bytes(row[4],c)) for c in (0,1)] for row in p['rows']],dtype=np.uint8))
+  f.create_dataset('dds_frequency_words',data=np.array([list(dds_frequency_bytes(row[4])) for row in p['rows']],dtype=np.uint8))
+  f.create_dataset('dds_phase_words',data=np.array([[list(dds_phase_bytes(c)) for c in (0,1)] for row in p['rows']],dtype=np.uint8))
+  from lfm import write,CFR1_BASE,CFR2_PLL20
+  g=f.create_group('dds_config_writes')
+  g.create_dataset('0',data=np.frombuffer(write(0,CFR1_BASE),dtype=np.uint8))
+  g.create_dataset('1',data=np.frombuffer(write(1,CFR2_PLL20),dtype=np.uint8))
  return p
 
 if __name__=='__main__':

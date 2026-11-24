@@ -4,9 +4,9 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9123687369017284,
+      "coherence": 0.9514949286828803,
       "carrier_hz": 30000000,
-      "actual_carrier_hz": 30000000.004656613,
+      "actual_carrier_hz": 29999999.98137355,
       "chip_us": 30.0,
       "truth_delay_us": 247.0,
       "truth_doppler_hz": 125.0,
@@ -17,7 +17,7 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9135617679265728,
+      "coherence": 0.9519185438092684,
       "carrier_hz": 500000,
       "actual_carrier_hz": 499999.9888241291,
       "chip_us": 30.0,
@@ -30,7 +30,7 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9129063393523207,
+      "coherence": 0.9520039111137382,
       "carrier_hz": 10000000,
       "actual_carrier_hz": 10000000.009313226,
       "chip_us": 30.0,
@@ -43,9 +43,9 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9038806260940224,
+      "coherence": 0.9413382388895907,
       "carrier_hz": 30000000,
-      "actual_carrier_hz": 30000000.004656613,
+      "actual_carrier_hz": 29999999.98137355,
       "chip_us": 10.0,
       "truth_delay_us": 247.0,
       "truth_doppler_hz": 125.0,
@@ -56,7 +56,7 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.905868525284578,
+      "coherence": 0.9468551626949178,
       "carrier_hz": 500000,
       "actual_carrier_hz": 499999.9888241291,
       "chip_us": 10.0,
@@ -69,7 +69,7 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.900750787620856,
+      "coherence": 0.9406240500548786,
       "carrier_hz": 10000000,
       "actual_carrier_hz": 10000000.009313226,
       "chip_us": 10.0,
@@ -82,9 +82,9 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9158183207692179,
+      "coherence": 0.954924286243282,
       "carrier_hz": 30000000,
-      "actual_carrier_hz": 30000000.004656613,
+      "actual_carrier_hz": 29999999.98137355,
       "chip_us": 1000.0,
       "truth_delay_us": 247.0,
       "truth_doppler_hz": 125.0,
@@ -95,7 +95,7 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9160171169329945,
+      "coherence": 0.9551048674921705,
       "carrier_hz": 500000,
       "actual_carrier_hz": 499999.9888241291,
       "chip_us": 1000.0,
@@ -108,7 +108,7 @@
     {
       "delay_us": 248.0,
       "doppler_hz": 125.0,
-      "coherence": 0.9157965359571035,
+      "coherence": 0.9550640165641261,
       "carrier_hz": 10000000,
       "actual_carrier_hz": 10000000.009313226,
       "chip_us": 1000.0,
@@ -149,7 +149,7 @@
   "negative_control": {
     "kind": "phase_modulator_stuck",
     "detected": true,
-    "coherence": 0.0592779332797903
+    "coherence": 0.061646450575546914
   },
   "schedule_checks": {
     "user_order": true,

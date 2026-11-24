@@ -37,7 +37,7 @@ report=f'''# End-to-end reference test
 
 **Result: {'PASS' if s['pass_all'] else 'FAIL'} in simulation. This does not test board hardware or MCU firmware.**
 
-The test compiles an explicit binary code and frequency program to HDF5, closes the file, reloads it through a separate validator, schedules the saved table, emits 40-bit AD9850 serial frames, decodes those frames with a separate shift-register model, synthesizes a clocked 10-bit DAC waveform, and applies the nominal LC filter from the current circuit manifest. A delayed, Doppler-shifted, noisy echo is then downconverted and acquired using an independent receiver reference constructed from the original requested code, not the transmitted samples. No true echo delay or Doppler is provided to the receiver search.
+The test compiles an explicit binary code and frequency program to HDF5, closes the file, reloads it through a separate validator, schedules the saved table, emits AD9954 register frames (40-bit frequency and 24-bit phase writes), decodes those frames with a separate shift-register model, synthesizes a clocked 14-bit DAC waveform, and applies the nominal LC filter from the current circuit manifest. A delayed, Doppler-shifted, noisy echo is then downconverted and acquired using an independent receiver reference constructed from the original requested code, not the transmitted samples. No true echo delay or Doppler is provided to the receiver search.
 
 ![Synthetic echo acquisition](end-to-end-acquisition.png)
 
@@ -51,7 +51,7 @@ Every RF case injects a **247 µs delay and +125 Hz Doppler**, with **−10 dB S
 
 The recovered-delay offset includes finite sample-grid and modeled signal-path effects; this test does not establish sub-microsecond absolute ranging accuracy. A 1 µs search grid is not a 1 µs waveform range resolution: these are isolated-echo estimation tests, not tests of resolving nearby echoes. The long-chip case uses a shorter 31-chip test sequence; other RF cases use 127 chips or its 31-chip prefix. These are synthetic demonstration codes, not agreed station codes.
 
-The RF simulation runs at 100 MS/s for bounded 16–124 ms records. It does **not** simulate every RF sample of the full five-minute interval. A separate event-level schedule test checks the requested nonascending order (30, 0.5, 10 MHz), 2 s dwell, 100 µs end-of-dwell mute guards, 300 s recurrence, and restart at the next complete sweep after reacquisition. Integration tests also exercise 1000 table entries with a sufficiently long repeat interval, one-shot mode, and single-frequency mode. The absolute UTC/PPS association and leap-second handling are not implemented firmware and are not validated here.
+The RF simulation runs at 200 MS/s for bounded 16–124 ms records. It does **not** simulate every RF sample of the full five-minute interval. A separate event-level schedule test checks the requested nonascending order (30, 0.5, 10 MHz), 2 s dwell, 100 µs end-of-dwell mute guards, 300 s recurrence, and restart at the next complete sweep after reacquisition. Integration tests also exercise 1000 table entries with a sufficiently long repeat interval, one-shot mode, and single-frequency mode. The absolute UTC/PPS association and leap-second handling are not implemented firmware and are not validated here.
 
 ## Existing ionosonde decoder
 

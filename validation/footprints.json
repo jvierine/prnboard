@@ -320,23 +320,13 @@
     },
     {
       "ref": "U10",
-      "library": "Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm",
-      "physical_pads": 25
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
     },
     {
-      "ref": "R18",
-      "library": "Resistor_SMD:R_0603_1608Metric",
-      "physical_pads": 2
-    },
-    {
-      "ref": "R19",
-      "library": "Resistor_SMD:R_0603_1608Metric",
-      "physical_pads": 2
-    },
-    {
-      "ref": "R20",
-      "library": "Resistor_SMD:R_0603_1608Metric",
-      "physical_pads": 2
+      "ref": "U17",
+      "library": "Package_TO_SOT_SMD:SOT-23-5",
+      "physical_pads": 5
     },
     {
       "ref": "C33",
@@ -359,14 +349,39 @@
       "physical_pads": 2
     },
     {
+      "ref": "R18",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R19",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
       "ref": "C37",
       "library": "Capacitor_SMD:C_0603_1608Metric",
       "physical_pads": 2
     },
     {
+      "ref": "C54",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "R20",
+      "library": "Resistor_SMD:R_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C55",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
       "ref": "U11",
-      "library": "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm",
-      "physical_pads": 28
+      "library": "Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm",
+      "physical_pads": 53
     },
     {
       "ref": "R21",
@@ -384,23 +399,78 @@
       "physical_pads": 2
     },
     {
+      "ref": "C56",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C57",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C58",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C59",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C60",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C61",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C62",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C63",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C64",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C65",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C66",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
+      "ref": "C67",
+      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "physical_pads": 2
+    },
+    {
       "ref": "C38",
       "library": "Capacitor_SMD:C_0603_1608Metric",
       "physical_pads": 2
     },
     {
-      "ref": "C39",
-      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "ref": "R39",
+      "library": "Resistor_SMD:R_0603_1608Metric",
       "physical_pads": 2
     },
     {
-      "ref": "C40",
-      "library": "Capacitor_SMD:C_0603_1608Metric",
-      "physical_pads": 2
-    },
-    {
-      "ref": "C41",
-      "library": "Capacitor_SMD:C_0603_1608Metric",
+      "ref": "R40",
+      "library": "Resistor_SMD:R_0603_1608Metric",
       "physical_pads": 2
     },
     {

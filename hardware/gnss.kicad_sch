@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "5a64ad82-0882-5148-8a4f-6adb9cc8edaa") (paper "A3") (title_block (title "PRNboard / GNSS") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:U7" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "5a64ad82-0882-5148-8a4f-6adb9cc8edaa") (paper "A3") (title_block (title "PRNboard / GNSS") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:U7" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "U" (at 0 8.89 0) (effects (font (size 1 1)))) (property "Value" "MAX-M10S-00B" (at 0 11.43 0) (effects (font (size 1 1))))
 (symbol "U7_0_1" (rectangle (start -10.16 -6.35) (end 10.16 6.35) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "U7_1_1"

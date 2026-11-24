@@ -1,3 +1,11 @@
+# Revision B sourcing update — 2026-11-24
+
+AD9954YSVZ-REEL7 (C496484) is selected. The [JLC DDS catalogue](https://jlcpcb.com/parts/2nd/Data_Acquisition/Direct_Digital_Synthesis_%28DDS%29_3144) listed 35 units at about $45.19, versus 57 AD9850 units at about $21.61. Removing the roughly $6 Si5351 and adding 1.8 V regulators/passives gives about $18–20 additional components per board. Current component estimate is about $77; small-batch assembly planning allowance is $95–115, excluding PA and accessories. This is not a supplier quote.
+
+The [ADI product page](https://www.analog.com/en/products/ad9954.html) lists production status. Established distributors also list stock; stock and prices must be refreshed before purchase. Cheaper indexed LCSC prices were not confirmed live and are not used in this budget. AP2112K-1.8 and all remaining exact-order codes still require final assembler sourcing checks. No purchase has been made.
+
+The prior sourcing investigation follows for context; its AD9850/Si5351 selection is superseded.
+
 # Initial sourcing check — 23 November 2026
 
 Public catalogue evidence only; not a reservation or a complete current assembly quote. Search-index quantities can lag actual order availability. Recheck in a BOM quotation before ordering. LCSC stock is not equivalent to JLC assembly stock.

@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "a6edf53a-e87a-57b6-a690-1f9b17fafda0") (paper "A3") (title_block (title "PRNboard / Wi-Fi") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:U6" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "a6edf53a-e87a-57b6-a690-1f9b17fafda0") (paper "A3") (title_block (title "PRNboard / Wi-Fi") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:U6" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "U" (at 0 16.51 0) (effects (font (size 1 1)))) (property "Value" "ESP32-S3-WROOM-1-N8" (at 0 19.05 0) (effects (font (size 1 1))))
 (symbol "U6_0_1" (rectangle (start -10.16 -13.97) (end 10.16 13.97) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "U6_1_1"

@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "00b0ff44-8aa5-5d2d-9e6a-8aae11c653e7") (paper "A3") (title_block (title "PRNboard / Controller 3") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:R36" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "00b0ff44-8aa5-5d2d-9e6a-8aae11c653e7") (paper "A3") (title_block (title "PRNboard / Controller 3") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:R36" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "R" (at 0 6.35 0) (effects (font (size 1 1)))) (property "Value" "1k" (at 0 8.89 0) (effects (font (size 1 1))))
 (symbol "R36_0_1" (rectangle (start -10.16 -3.81) (end 10.16 3.81) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "R36_1_1"

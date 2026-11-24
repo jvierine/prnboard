@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "b78233d1-4630-5eff-8e16-c40b132584d6") (paper "A3") (title_block (title "PRNboard / Expansion") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:J4" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "b78233d1-4630-5eff-8e16-c40b132584d6") (paper "A3") (title_block (title "PRNboard / Expansion") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:J4" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "J" (at 0 6.35 0) (effects (font (size 1 1)))) (property "Value" "SWD" (at 0 8.89 0) (effects (font (size 1 1))))
 (symbol "J4_0_1" (rectangle (start -10.16 -3.81) (end 10.16 3.81) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "J4_1_1"

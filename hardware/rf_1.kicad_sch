@@ -1,4 +1,4 @@
-(kicad_sch (version 20250114) (generator "eeschema") (uuid "11bbd1ac-bbec-5c94-8128-61af84eb7b4b") (paper "A3") (title_block (title "PRNboard / RF 1") (date "2026-11-23") (rev "A DRAFT")) (lib_symbols (symbol "PRNboard:L2" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
+(kicad_sch (version 20250114) (generator "eeschema") (uuid "11bbd1ac-bbec-5c94-8128-61af84eb7b4b") (paper "A3") (title_block (title "PRNboard / RF 1") (date "2026-11-23") (rev "B DRAFT")) (lib_symbols (symbol "PRNboard:L2" (pin_names (offset 0.7)) (in_bom yes) (on_board yes)
 (property "Reference" "L" (at 0 6.35 0) (effects (font (size 1 1)))) (property "Value" "100n" (at 0 8.89 0) (effects (font (size 1 1))))
 (symbol "L2_0_1" (rectangle (start -10.16 -3.81) (end 10.16 3.81) (stroke (width .2) (type default)) (fill (type background))))
 (symbol "L2_1_1"
@@ -193,7 +193,7 @@
 (wire (pts (xy 325.12 134.62) (xy 322.58 134.62)) (stroke (width 0) (type default)) (uuid "14ae461b-c195-5c39-b84e-514ae44441dd"))
 (global_label "LP_OUT" (shape passive) (at 322.58 134.62 0) (effects (font (size .7 .7)) (justify right)) (uuid "ce0a649a-a158-5148-bc26-e843bd1f0483"))
 (wire (pts (xy 355.6 134.62) (xy 358.14000000000004 134.62)) (stroke (width 0) (type default)) (uuid "a6d79f6a-9cb8-5fef-bdb7-5df6fb83e066"))
-(global_label "GND" (shape passive) (at 358.14000000000004 134.62 180) (effects (font (size .7 .7)) (justify left)) (uuid "5cc79ebf-9640-5db6-84c8-53c395f1db7a"))
+(global_label "1V8A" (shape passive) (at 358.14000000000004 134.62 180) (effects (font (size .7 .7)) (justify left)) (uuid "5cc79ebf-9640-5db6-84c8-53c395f1db7a"))
 (symbol (lib_id "PRNboard:C45") (at 50.8 213.36 0) (unit 1) (in_bom yes) (on_board yes) (dnp no) (uuid "280756d1-436b-579e-8c9a-5662f57a0a6e")
 (property "Reference" "C45" (at 50.8 204.55 0) (effects (font (size .9 .9))))
 (property "Value" "100n" (at 50.8 206.55 0) (effects (font (size .9 .9))))
