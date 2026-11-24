@@ -16,6 +16,10 @@ A standalone GNSS-timed PRN ionosonde exciter, intended to replace the transmit 
 
 **Status:** editable KiCad circuit and **unrouted placement study**, plus a tested host program compiler and end-to-end reference simulation. **Not ready to order.** Routing, firmware, sourcing and RF/timing validation remain. No fabrication order has been placed.
 
+![PRNboard component placement with key components labeled](docs/board-layout.png)
+
+Current 95 × 85 mm placement draft, top view. Copper routing is unfinished; the 10 W PA is separate.
+
 [End-to-end simulation and results](docs/end-to-end.md) · [Revision B and remaining work](docs/revision-b.md) · [LFM results](docs/lfm.md) · [Sourcing](docs/sourcing.md) · [Requirements](docs/requirements.md)
 
 Open `hardware/prnboard.kicad_pro` in KiCad 10.
